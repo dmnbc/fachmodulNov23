@@ -11,7 +11,7 @@ using namespace std;
 class Spiel
 {
 private:
-	// das spielfeld hat 64 Felder testy testy
+	// das spielfeld hat 64 Felder
 	//array<array<Feld, 8>, 8> spielfeld;
 	map<string, Feld> spielmap;
 
