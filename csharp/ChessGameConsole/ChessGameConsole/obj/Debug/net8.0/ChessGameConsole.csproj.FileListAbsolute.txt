@@ -1,0 +1,14 @@
+C:\Users\CC-Student\source\repos\ChessGameConsole\ChessGameConsole\bin\Debug\net8.0\ChessGameConsole.exe
+C:\Users\CC-Student\source\repos\ChessGameConsole\ChessGameConsole\bin\Debug\net8.0\ChessGameConsole.deps.json
+C:\Users\CC-Student\source\repos\ChessGameConsole\ChessGameConsole\bin\Debug\net8.0\ChessGameConsole.runtimeconfig.json
+C:\Users\CC-Student\source\repos\ChessGameConsole\ChessGameConsole\bin\Debug\net8.0\ChessGameConsole.dll
+C:\Users\CC-Student\source\repos\ChessGameConsole\ChessGameConsole\bin\Debug\net8.0\ChessGameConsole.pdb
+C:\Users\CC-Student\source\repos\ChessGameConsole\ChessGameConsole\obj\Debug\net8.0\ChessGameConsole.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\CC-Student\source\repos\ChessGameConsole\ChessGameConsole\obj\Debug\net8.0\ChessGameConsole.AssemblyInfoInputs.cache
+C:\Users\CC-Student\source\repos\ChessGameConsole\ChessGameConsole\obj\Debug\net8.0\ChessGameConsole.AssemblyInfo.cs
+C:\Users\CC-Student\source\repos\ChessGameConsole\ChessGameConsole\obj\Debug\net8.0\ChessGameConsole.csproj.CoreCompileInputs.cache
+C:\Users\CC-Student\source\repos\ChessGameConsole\ChessGameConsole\obj\Debug\net8.0\ChessGameConsole.dll
+C:\Users\CC-Student\source\repos\ChessGameConsole\ChessGameConsole\obj\Debug\net8.0\refint\ChessGameConsole.dll
+C:\Users\CC-Student\source\repos\ChessGameConsole\ChessGameConsole\obj\Debug\net8.0\ChessGameConsole.pdb
+C:\Users\CC-Student\source\repos\ChessGameConsole\ChessGameConsole\obj\Debug\net8.0\ChessGameConsole.genruntimeconfig.cache
+C:\Users\CC-Student\source\repos\ChessGameConsole\ChessGameConsole\obj\Debug\net8.0\ref\ChessGameConsole.dll
