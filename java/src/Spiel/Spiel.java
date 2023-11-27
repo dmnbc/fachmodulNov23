@@ -74,7 +74,6 @@ public class Spiel {
      */
     public void saveZug(String zug, String fileName){
         String filePath = "./saveFiles/" + fileName + ".txt";
-        int zugNummer = getZugnummer();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             writer.write(zug);
             writer.newLine();
