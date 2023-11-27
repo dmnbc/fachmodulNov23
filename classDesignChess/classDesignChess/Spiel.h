@@ -18,7 +18,7 @@ private:
 public:
 	Spiel();
 
-	void anzeigen();
+	void anzeigen(bool);
 
 
 };
