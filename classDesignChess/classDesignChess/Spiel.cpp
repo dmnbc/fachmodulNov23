@@ -20,19 +20,8 @@ Spiel::Spiel()
 	//std::cout << __LINE__ << ": spiel.cpp " << "ctor Spiel()\n";
 }
 
-void Spiel::anzeigen()
-/*{
- // alle Felder mit ihrer feldFarbe als Quadrat darstellen
+void Spiel::anzeigen(bool richtung)
 
-	for( auto zeile : spielfeld)
-	{
-		for (auto feld : zeile)
-		{
-			std::cout << feld.get_feldFarbe();
-		}
-		std::cout << "\n";
-	}
-}*/
 {
 	string key;
 	char spalte;
@@ -41,15 +30,32 @@ void Spiel::anzeigen()
 	dkremer::concolinit();
 	dkremer::setcolor(green,black);
 	// dkremer::setcolor(red, blue);
+	std::cout << (richtung? "  ABCDEFGH ":"  HGFEDCBA ")<<"\n\n";
 	for(zeile = '8'; zeile >= '1'; zeile--)
 	{
+		
+		//std::cout<< (richtung ? zeile : '9' - zeile) << ' ';
+		if (richtung)
+			std::cout << zeile << ' ';
+		else
+			std::cout << ('9' - zeile) << ' ';
 		for (spalte = 'a'; spalte <= 'h'; spalte++)
 		{
 			key = std::string(1, spalte) + zeile;
-			std::cout<<((zeile+spalte)%2?blue:red) << key << " ";
+
+			std::cout << ((zeile + spalte) % 2 ? blue : red);
+			std::cout << spielmap[key].get_figur().get_darstellung();
+
+			// std::cout<<((zeile+spalte)%2?blue:red) << key << " ";
 			// std::cout << spielmap[key].get_feldFarbe()<<" ";			
 		}
-		std::cout <<  "\n" ;
+		// std::cout <<' '<< (richtung ? zeile : '9' - zeile) << "\n";
+		if (richtung)
+			std::cout << ' ' << zeile << ' ' << "\n";
+		else
+			std::cout << ' ' << ('9' - zeile) << "\n";
 	}
-	dkremer::setcolor(green,black);
+	dkremer::setcolor(green, black);
+	std::cout <<"\n"<< (richtung ? "  ABCDEFGH " : "  HGFEDCBA ") << "\n";
+	
 }
