@@ -6,8 +6,12 @@ Feld::Feld()
 	zeile  = feldNr / 8;
 	spalte = feldNr % 8;
 	feldFarbe = (zeile + spalte) % 2 ? 176 : 32;
-	
-	figur = Figur('x');
+	//std::cout << __LINE__ << ":" <<"Feld.cpp -> ctor Feld() "
+	//	      << feldNr <<" in "<< zeile <<"," <<spalte 
+	//	      << "\t" << feldFarbe <<		"\n";
+// wie kann ich die Bezeichnung und die Farbe ermitteln ?
+// es fehlenn mir zeilenNummer und SpaltenNummer um ( z+s)%2 zu rechnen
+// aus der laufenden Nummer des Feldes ( 0 bis 63 ) kann man das berechnen
 }
 
 Feld::Feld(std::string koordinaten ) // a1 dunkel a2 hell a3 dunkel   
@@ -16,31 +20,7 @@ Feld::Feld(std::string koordinaten ) // a1 dunkel a2 hell a3 dunkel
 {
 	feldNr = laufendeNr++;
 	zeile =  koordinaten[1] -'0';
-	spalte = koordinaten[0] -'b'; // 97 - 98    +2 
+	spalte = koordinaten[0] -'b';
 	feldFarbe = (zeile + spalte) % 2 ? 176 : 32;
-	std::string offz{ " tpldklpt " };
-
-	switch (zeile) 
-	{
-	case 2: 
-	case 7: // Bauern aufstellen
-		figur = Figur('B'+(zeile%2)*32);
-		break;
-	case 1:
-	case 8: // Offz aufstellen
-		try {
-			figur = Figur(offz[spalte+2] - (zeile % 2) * 32);
-		}
-		catch (...)
-		{
-			std::cout << "fehler bei spalte " << spalte << "\n";
-		}
-		break;
-	default: 
-		figur = Figur(feldFarbe);
-
-	}
-
-
 	// std::cout << __LINE__ << " feld.cpp " << koordinaten << "\n";
 }
