@@ -3,7 +3,12 @@
 class Turm :
     public Figur
 {
+    char turm;
+
 public:
     Turm();
+
+    Turm(char Fig);
+
 };
 

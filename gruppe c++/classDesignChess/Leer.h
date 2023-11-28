@@ -1,15 +1,12 @@
 #pragma once
 #include "Figur.h"
-
-class Dame :
+class Leer :
     public Figur
 {
-    char dame;
+private:
+    char leer;
 
 public:
-    Dame();
-
-    Dame(char Fig);
+    Leer();
 
 };
-
