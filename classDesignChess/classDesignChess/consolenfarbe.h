@@ -7,12 +7,12 @@ Global variables - textcol,backcol,deftextcol,defbackcol,colorprotect*/
 #include<windows.h>
 #include<iosfwd>
 
-namespace dkremer
+namespace farbe
 {
 
 #ifndef CONCOL
 #define CONCOL
-	enum concol  // alte CGA  MS-DOS Bezeichnungen   etwa 1986 ??
+	enum concol
 	{
 		black=0,
 		dark_blue=1,
@@ -35,7 +35,7 @@ namespace dkremer
 
 	HANDLE std_con_out;
 	//Standard Output Handle
-	bool colorprotect=true;
+	bool colorprotect=false;
 	//If colorprotect is true, background and text colors will never be the same
 	concol textcol,backcol,deftextcol,defbackcol;
 	/*textcol - current text color
@@ -84,12 +84,7 @@ namespace dkremer
 
 	template<class elem,class traits>
 	inline std::basic_ostream<elem,traits>& operator<<(std::basic_ostream<elem,traits>& os,concol col)
-	{
-		os.flush();
-		settextcolor(col);   // kein os << xxxx
-		return os;}
-
-
+	{os.flush();settextcolor(col);return os;}
 
 	template<class elem,class traits>
 	inline std::basic_istream<elem,traits>& operator>>(std::basic_istream<elem,traits>& is,concol col)
