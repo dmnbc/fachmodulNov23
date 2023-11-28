@@ -1,7 +1,7 @@
 package Spiel;
 
 
-import Figur.Bauer;
+import Figur.*;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -35,49 +35,53 @@ public class Spiel {
     }
 
     private void initialisiereFiguren() {
-        // Beispiel: Platzieren von Figuren
-        // Hier können Sie alle Ihre Figuren auf dem Brett platzieren
-        // Beispiel: Platzieren eines Bauern auf a2
-        spielMap.get("a2").setFigur(new Bauer("Weiß"));
-        // Platzieren Sie hier weitere Figuren...
+        for (char z = 'a'; z < 'i'; z++) {
+            spielMap.get(z + "" + 2).setFigur(new Bauer("Weiß"));
+            spielMap.get(z + "" + 7).setFigur(new Bauer("Schwarz"));
+        }
+        spielMap.get('a' + "" + 1).setFigur(new Turm("Weiß"));
+        spielMap.get('b' + "" + 1).setFigur(new Springer("Weiß"));
+        spielMap.get('c' + "" + 1).setFigur(new Lauefer("Weiß"));
+        spielMap.get('d' + "" + 1).setFigur(new Dame("Weiß"));
+        spielMap.get('e' + "" + 1).setFigur(new Koenig("Weiß"));
+        spielMap.get('f' + "" + 1).setFigur(new Lauefer("Weiß"));
+        spielMap.get('g' + "" + 1).setFigur(new Springer("Weiß"));
+        spielMap.get('h' + "" + 1).setFigur(new Turm("Weiß"));
+
+        spielMap.get('a' + "" + 8).setFigur(new Turm("Schwarz"));
+        spielMap.get('b' + "" + 8).setFigur(new Springer("Schwarz"));
+        spielMap.get('c' + "" + 8).setFigur(new Lauefer("Schwarz"));
+        spielMap.get('d' + "" + 8).setFigur(new Dame("Schwarz"));
+        spielMap.get('e' + "" + 8).setFigur(new Koenig("Schwarz"));
+        spielMap.get('f' + "" + 8).setFigur(new Lauefer("Schwarz"));
+        spielMap.get('g' + "" + 8).setFigur(new Springer("Schwarz"));
+        spielMap.get('h' + "" + 8).setFigur(new Turm("Schwarz"));
+
     }
 
     public void anzeigen(String color) {
-        if (color.equals("Weiß")) {
-            System.out.println("  a b c d e f g h");
-            for (char zeile = '8'; zeile >= '1'; zeile--) {
-                System.out.print(zeile + " ");
-                for (char spalte = 'a'; spalte <= 'h'; spalte++) {
-                    String key = spalte + "" + zeile;
-                    if (spielMap.get(key).getFigure() != null) {
-                        System.out.print(spielMap.get(key).getFigure().getSymbol() + " ");
-                    } else {
-                        //String farbe = ((zeile + spalte) % 2 == 0 ? RED : BLUE);
-                        // System.out.print(farbe + key + " " + RESET);
-                        System.out.print(spielMap.get(key).getFeldFarbe() + " ");
-                    }
+        String bezeichnung = color.equals("Weiß") ? "  A B C D E F G H" : "  H G F E D C B A";
+        char zeilenAnfang = color.equals("Weiß") ? '8' : '1';
+        char zeilenEnde = color.equals("Weiß") ? '0' : '9';
+        char spaltenAnfang = color.equals("Weiß") ? 'a' : 'h';
+        char spaltenEnde = color.equals("Weiß") ? 'i' : '`';
+        int step = color.equals("Weiß") ? -1 : 1;
+
+        System.out.println(bezeichnung);
+        for (char zeile = zeilenAnfang; zeile != zeilenEnde; zeile += step) {
+            System.out.print(zeile + " ");
+            for (char spalte = spaltenAnfang; spalte != spaltenEnde; spalte -= step) {
+                String key = spalte + "" + zeile;
+                if (spielMap.get(key).getFigure() != null) {
+                    System.out.print(spielMap.get(key).getFigure().getSymbol() + " ");
+                } else {
+                    System.out.print(spielMap.get(key).getFeldFarbe() + " ");
                 }
-                System.out.println(zeile);
             }
-            System.out.println("  a b c d e f g h");
-        } else {
-            System.out.println("  h g f e d c b a");
-            for (char zeile = '1'; zeile <= '8'; zeile++) {
-                System.out.print(zeile + " ");
-                for (char spalte = 'h'; spalte >= 'a'; spalte--) {
-                    String key = spalte + "" + zeile;
-                    if (spielMap.get(key).getFigure() != null) {
-                        System.out.print(spielMap.get(key).getFigure().getSymbol() + " ");
-                    } else {
-                        //String farbe = ((zeile + spalte) % 2 == 0 ? RED : BLUE);
-                        // System.out.print(farbe + key + " " + RESET);
-                        System.out.print(spielMap.get(key).getFeldFarbe() + " ");
-                    }
-                }
-                System.out.println(zeile);
-            }
-            System.out.println("  h g f e d c b a");
+            System.out.println(zeile);
         }
+        System.out.println(bezeichnung);
+
     }
 
     /**

@@ -6,7 +6,12 @@ public class Figur {
     private final String name;
 
     public Figur(String color, char symbol) {
-        this.color = color;
+        if (!color.equals("Weiß") && !color.equals("weiß")) {
+            this.color = "Schwarz";
+        } else {
+            this.color = color.toUpperCase().charAt(0) + color.substring(1);
+        }
+
         this.symbol = symbol;
         this.name = getClass().getSimpleName();
     }
