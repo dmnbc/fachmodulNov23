@@ -92,6 +92,7 @@ public class Spiel {
         spielMap.get(zug.substring(0,2)).setFigur(null); //set source field to null
         //TODO remove this test of zugVerlauf
         System.out.println(zugVerlauf);
+        zugNummer++;
 
     }
 
