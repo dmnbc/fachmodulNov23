@@ -14,7 +14,7 @@ import static KonsolenFarbe.KonsolenFarbe.*;
 public class Spiel {
     Map<String, Feld> spielMap = new HashMap<>();
     int zugNummer;
-    HashMap<Integer, String> zugVerlauf = new HashMap<>();
+    HashMap<Integer, String> zugVerlauf = new HashMap<>(); //bei jeden figurBewegen(), zugNummer:zug in zugVerlauf speichern
 
     public Spiel() {
         String key;
