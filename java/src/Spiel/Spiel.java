@@ -12,9 +12,9 @@ import java.util.Map;
 import static KonsolenFarbe.KonsolenFarbe.*;
 
 public class Spiel {
-    //Feld[][] spielFeld = new Feld[8][8]; // Spielbrett als Array
     Map<String, Feld> spielMap = new HashMap<>();
-    int zug;
+    int zugNummer;
+    HashMap<Integer, String> zugVerlauf = new HashMap<>();
 
     public Spiel() {
         String key;
@@ -30,8 +30,8 @@ public class Spiel {
         initialisiereFiguren();
     }
 
-    public int getZugnummer() {
-        return this.zug;
+    public int getZugNummer() {
+        return this.zugNummer;
     }
 
     private void initialisiereFiguren() {
@@ -92,9 +92,8 @@ public class Spiel {
      */
     public void save(Map<String, Feld> spiel, String fileName) {
         String filePath = "java\\src\\savedFiles\\" + fileName + ".txt";
-        int zugNummer = getZugnummer();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            writer.write("Runde: " + zugNummer);
+            writer.write("Runde: " + getZugNummer());
             writer.newLine();
             for (String key : spiel.keySet()) {
                 if (spiel.get(key).getFigure() != null) {
