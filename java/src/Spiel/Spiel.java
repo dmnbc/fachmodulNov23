@@ -1,6 +1,8 @@
 package Spiel;
 
 
+import Figur.Bauer;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -25,32 +27,67 @@ public class Spiel {
             key = spalte + "" + zeile;
             spielMap.put(key, new Feld(key));
         }
+        initialisiereFiguren();
     }
 
     public int getZugnummer() {
         return this.zug;
     }
 
-    public void anzeigen() {
-        for (char zeile = '8'; zeile >= '1'; zeile--) {
-            for (char spalte = 'a'; spalte <= 'h'; spalte++) {
-                String key = spalte + "" + zeile;
-                String farbe = ((zeile + spalte) % 2 == 0 ? RED : BLUE);
-                System.out.print(farbe + key + " " + RESET);
-                System.out.print(spielMap.get(key).getFeldFarbe() + " ");
+    private void initialisiereFiguren() {
+        // Beispiel: Platzieren von Figuren
+        // Hier können Sie alle Ihre Figuren auf dem Brett platzieren
+        // Beispiel: Platzieren eines Bauern auf a2
+        spielMap.get("a2").setFigur(new Bauer("Weiß"));
+        // Platzieren Sie hier weitere Figuren...
+    }
+
+    public void anzeigen(String color) {
+        if (color.equals("Weiß")) {
+            System.out.println("  a b c d e f g h");
+            for (char zeile = '8'; zeile >= '1'; zeile--) {
+                System.out.print(zeile + " ");
+                for (char spalte = 'a'; spalte <= 'h'; spalte++) {
+                    String key = spalte + "" + zeile;
+                    if (spielMap.get(key).getFigure() != null) {
+                        System.out.print(spielMap.get(key).getFigure().getSymbol() + " ");
+                    } else {
+                        //String farbe = ((zeile + spalte) % 2 == 0 ? RED : BLUE);
+                        // System.out.print(farbe + key + " " + RESET);
+                        System.out.print(spielMap.get(key).getFeldFarbe() + " ");
+                    }
+                }
+                System.out.println(zeile);
             }
-            System.out.println();
+            System.out.println("  a b c d e f g h");
+        } else {
+            System.out.println("  h g f e d c b a");
+            for (char zeile = '1'; zeile <= '8'; zeile++) {
+                System.out.print(zeile + " ");
+                for (char spalte = 'h'; spalte >= 'a'; spalte--) {
+                    String key = spalte + "" + zeile;
+                    if (spielMap.get(key).getFigure() != null) {
+                        System.out.print(spielMap.get(key).getFigure().getSymbol() + " ");
+                    } else {
+                        //String farbe = ((zeile + spalte) % 2 == 0 ? RED : BLUE);
+                        // System.out.print(farbe + key + " " + RESET);
+                        System.out.print(spielMap.get(key).getFeldFarbe() + " ");
+                    }
+                }
+                System.out.println(zeile);
+            }
+            System.out.println("  h g f e d c b a");
         }
     }
 
     /**
      * Die Methode speichert die Zugnummer des Spiels und für jede vorhandene Figur die Koordinate, Farbe und Namen.
      *
-     * @param spiel Das Spielfeld, das als Container der Felder und der dazugehörigen Figuren dient.
+     * @param spiel    Das Spielfeld, das als Container der Felder und der dazugehörigen Figuren dient.
      * @param fileName Der Name der Textdatei in der die Daten hinterlegt werden.
      */
     public void save(Map<String, Feld> spiel, String fileName) {
-        String filePath = "./saveFiles/" + fileName + ".txt";
+        String filePath = "java\\src\\savedFiles\\" + fileName + ".txt";
         int zugNummer = getZugnummer();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             writer.write("Runde: " + zugNummer);
@@ -69,11 +106,12 @@ public class Spiel {
 
     /**
      * Diese Methode speichert in einer seperaten Zeile den ausgeführten Zug.
-     * @param zug   Ein String der die Eingabe der ZugKoordinaten annimmt.
+     *
+     * @param zug      Ein String der die Eingabe der ZugKoordinaten annimmt.
      * @param fileName Der Name der Textdatei in der die Daten hinterlegt werden.
      */
-    public void saveZug(String zug, String fileName){
-        String filePath = "./saveFiles/" + fileName + ".txt";
+    public void saveZug(String zug, String fileName) {
+        String filePath = "java\\src\\savedFiles\\" + fileName + ".txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             writer.write(zug);
             writer.newLine();

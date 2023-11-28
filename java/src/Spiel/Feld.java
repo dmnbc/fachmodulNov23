@@ -41,7 +41,12 @@ public class Feld {
     public int getSpalte() {
         return spalte;
     }
-    public Figur getFigure(){
+
+    public Figur getFigure() {
         return this.figur;
+    }
+
+    public void setFigur(Figur figur) {
+        this.figur = figur;
     }
 }
