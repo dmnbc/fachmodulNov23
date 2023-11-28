@@ -13,8 +13,8 @@ int main()
 {
     Spiel s1;
     s1.anzeigen(true);
-    std::cout << "\n";
-    s1.anzeigen(false);
+    // std::cout << "\n";
+   // s1.anzeigen(false);
 }
 
 
