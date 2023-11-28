@@ -60,7 +60,7 @@ public class Spiel {
     }
 
     public void anzeigen(String color) {
-        String bezeichnung = color.equals("Weiß") ? "  A B C D E F G H" : "  H G F E D C B A";
+        String bezeichnung = color.equals("Weiß") ? "  A  B  C D  E F  G  H" : "  H  G  F E  D C  B  A";
         char zeilenAnfang = color.equals("Weiß") ? '8' : '1';
         char zeilenEnde = color.equals("Weiß") ? '0' : '9';
         char spaltenAnfang = color.equals("Weiß") ? 'a' : 'h';
