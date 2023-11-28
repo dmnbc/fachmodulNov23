@@ -3,19 +3,20 @@ package Spiel;
 import Figur.Figur;
 
 public class Feld {
-    private char feldFarbe = 32;
+    private String feldFarbe ;
     private Figur figur;
     private int feldNr;
     private int zeile;
     private int spalte;
     public static int laufendeNr;
-
+    private final String hell = ((char) 9724 + "" + (char) (8202));
+    private final String dunkel = ((char) 9723 + "" + (char) (8202));
 
     public Feld() {
         feldNr = laufendeNr++;
         zeile = feldNr / 8;
         spalte = feldNr % 8;
-        feldFarbe = (char) ((zeile + spalte) % 2 == 0 ? 176 : 32);
+        feldFarbe = ((zeile + spalte) % 2 == 0 ? hell : dunkel);
         //System.out.printf("%d: %d,%d %c\n", feldNr, zeile, spalte, feldFarbe);
     }
 
@@ -23,10 +24,10 @@ public class Feld {
         feldNr = laufendeNr++;
         zeile = koordinaten.charAt(1) - '0';
         spalte = koordinaten.charAt(0) - 'b';
-        feldFarbe = (char) ((zeile + spalte) % 2 == 0 ? 176 : 32);
+        feldFarbe =  ((zeile + spalte) % 2 == 0 ? hell : dunkel);
     }
 
-    public char getFeldFarbe() {
+    public String getFeldFarbe() {
         return feldFarbe;
     }
 
