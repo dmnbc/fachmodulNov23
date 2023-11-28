@@ -3,7 +3,11 @@
 class Pferd :
     public Figur
 {
+    char pferd;
 public:
     Pferd();
+
+    Pferd(char Fig);
+
 };
 
