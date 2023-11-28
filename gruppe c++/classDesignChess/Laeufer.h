@@ -1,9 +1,16 @@
 #pragma once
 #include "Figur.h"
+
 class Laeufer :
     public Figur
 {
+    char laeufer;
+
 public:
-	Laeufer();
+    Laeufer();
+
+    Laeufer(char Fig);
+
 };
+
 
