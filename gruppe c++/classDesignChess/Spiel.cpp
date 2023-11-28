@@ -3,11 +3,11 @@
 
 Spiel::Spiel()
 {
-	// map füllen
+	// map fÃ¼llen
 	string key;
 	char spalte;
 	char zeile;
-    for (char spalte = 'A'; spalte <= 'H'; spalte++)
+    for (char spalte = 'a'; spalte <= 'h'; spalte++)
 	{
         for (char zeile = '1'; zeile <= '8'; zeile++)
         {
