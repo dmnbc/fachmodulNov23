@@ -4,6 +4,6 @@ class Figur
 {
 public:
 	Figur();
-	
+	//Figur
 };
 
