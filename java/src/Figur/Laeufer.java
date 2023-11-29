@@ -3,24 +3,16 @@ package Figur;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Dame extends Figur {
-    public Dame(String color) {
-        super(color, (!color.equals("Weiß") ? '\u2655' : '\u265B'));
+public class Laeufer extends Figur {
+    public Laeufer(String color) {
+        super(color, (!color.equals("Weiß") ? '\u2657' : '\u265D'));
     }
 
     @Override
     public List<String> getPossibleMoves(int zeile, int spalte) {
         List<String> moves = new ArrayList<>();
 
-        for (int i = 1; i <= 8; i++) {
-            if (i != zeile) {
-                moves.add("" + (char) (spalte + 'a' - 1) + i);
-            }
-            if (i != spalte) {
-                moves.add("" + (char) (i + 'a' - 1) + zeile);
-            }
-        }
-
+        // Diagonale Bewegungen
         for (int i = -8; i <= 8; i++) {
             if (i != 0) {
                 int newZeile = zeile + i;

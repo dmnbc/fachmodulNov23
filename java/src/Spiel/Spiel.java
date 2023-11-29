@@ -40,19 +40,19 @@ public class Spiel {
         }
         spielMap.get('a' + "" + 1).setFigur(new Turm("Weiß"));
         spielMap.get('b' + "" + 1).setFigur(new Springer("Weiß"));
-        spielMap.get('c' + "" + 1).setFigur(new Lauefer("Weiß"));
+        spielMap.get('c' + "" + 1).setFigur(new Laeufer("Weiß"));
         spielMap.get('d' + "" + 1).setFigur(new Dame("Weiß"));
         spielMap.get('e' + "" + 1).setFigur(new Koenig("Weiß"));
-        spielMap.get('f' + "" + 1).setFigur(new Lauefer("Weiß"));
+        spielMap.get('f' + "" + 1).setFigur(new Laeufer("Weiß"));
         spielMap.get('g' + "" + 1).setFigur(new Springer("Weiß"));
         spielMap.get('h' + "" + 1).setFigur(new Turm("Weiß"));
 
         spielMap.get('a' + "" + 8).setFigur(new Turm("Schwarz"));
         spielMap.get('b' + "" + 8).setFigur(new Springer("Schwarz"));
-        spielMap.get('c' + "" + 8).setFigur(new Lauefer("Schwarz"));
+        spielMap.get('c' + "" + 8).setFigur(new Laeufer("Schwarz"));
         spielMap.get('d' + "" + 8).setFigur(new Dame("Schwarz"));
         spielMap.get('e' + "" + 8).setFigur(new Koenig("Schwarz"));
-        spielMap.get('f' + "" + 8).setFigur(new Lauefer("Schwarz"));
+        spielMap.get('f' + "" + 8).setFigur(new Laeufer("Schwarz"));
         spielMap.get('g' + "" + 8).setFigur(new Springer("Schwarz"));
         spielMap.get('h' + "" + 8).setFigur(new Turm("Schwarz"));
 
