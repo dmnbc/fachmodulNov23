@@ -1,6 +1,12 @@
-#include "Koenig.h"
+#include "Koenig.hpp"
 
-Koenig::Koenig()
+Koenig::Koenig(std::string t, bool h)
 {
-	std::cout << __LINE__ << ":" << __FILE__ << "ctor Koenig()\n";
+	this->set_figurTyp(t);
+	this->set_figurFarbe(h);
+}
+
+std::vector<std::string> Koenig::erlaubteFelderErrechnen(std::string)
+{
+	return std::vector<std::string>();
 }
