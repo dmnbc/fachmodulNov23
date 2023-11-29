@@ -4,63 +4,117 @@
 
 using namespace dkremer;
 
-void setCursorPosition(unsigned int x, unsigned int y)
-{
-	static const HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-	std::cout.flush();
-	COORD coord = { (SHORT)x, (SHORT)y };
-	SetConsoleCursorPosition(hOut, coord);
-}
-
 Spiel::Spiel()
 {
 	// map füllen
 	string key;
 	char spalte;
 	char zeile;
-	for( int nr = 0; nr < 64; nr++)
+
+	for (int nr = 0; nr < 64; nr++)
 	{
-		spalte = 'a' + nr % 8; 
-		zeile  = '1' + nr / 8;
+		spalte = 'a' + nr % 8;
+		zeile = '1' + nr / 8;
 		key = std::string(1, spalte) + zeile;
 		spielmap[key] = Feld(key);
 	}
 	//std::cout << __LINE__ << ": spiel.cpp " << "ctor Spiel()\n";
 }
 
-void Spiel::anzeigen(bool richtung)
-{
-	//setCursorPosition(20, 20);
-	ofile.open("gameshistorie.txt", std::ios::app);
-	string key;
-	char spalte;
-	char zeile;
-	char zeilestart = (richtung ? '1' : '8');
-	char zeileende = (richtung ? '9' : '0');
-	char spaltestart = (richtung ? 'h' : 'a');
-	char spalteende = (richtung ? 'a' : 'i');
-	int  step = (richtung ? 1 : -1);
-	
-	dkremer::concolinit();
-	dkremer::setcolor(green,black);
-	// dkremer::setcolor(red, blue);
-	std::cout << (richtung? "  ABCDEFGH ":"  HGFEDCBA ")<<"\n\n";	
-	ofile << (richtung ? "  ABCDEFGH " : "  HGFEDCBA ") << "\n\n";
-	for (zeile = zeilestart; zeile != zeileende; zeile += step)
+void Spiel::anzeigen()
+/*{
+ // alle Felder mit ihrer feldFarbe als Quadrat darstellen
+
+	for( auto zeile : spielfeld)
 	{
-		std::cout << zeile << ' ';
-		ofile << zeile << ' ';
-		for (spalte = spaltestart; spalte != spalteende; spalte -= step)
+		for (auto feld : zeile)
 		{
-			key = std::string(1, spalte) + zeile;
-			std::cout << ((zeile + spalte) % 2 ? blue : red);
-			std::cout << spielmap[key].get_figur().get_darstellung();	
-			ofile<< spielmap[key].get_figur().get_darstellung();
-		}	
-		std::cout << ' ' << zeile << ' ' << "\n";	
-		ofile<< "\n";
+			std::cout << feld.get_feldFarbe();
+		}
+		std::cout << "\n";
 	}
-	dkremer::setcolor(green, black);
-	std::cout <<"\n"<< (richtung ? "  ABCDEFGH " : "  HGFEDCBA ") << "\n";
-	ofile.close();
+}*/
+{
+	if (richtung)
+	{
+		string key;
+		char spalte;
+		char zeile;
+
+
+		dkremer::concolinit();
+		dkremer::setcolor(green, black);
+		// dkremer::setcolor(red, blue);
+		std::cout << "    A B C D E F G H \n";
+
+		for (zeile = '8'; zeile >= '1'; zeile--)
+		{
+			std::cout << zeile << " |";
+			for (spalte = 'a'; spalte <= 'h'; spalte++)
+			{
+				key = std::string(1, spalte) + zeile;
+				std::cout << ((zeile + spalte) % 2 ? blue : red) << " ";
+				std::cout << spielmap[key].get_figur().get_darstellung();
+			}
+
+			std::cout << " | " << zeile << "\n";
+		}
+		std::cout << "    A B C D E F G H \n";
+		dkremer::setcolor(green, black);
+		richtung = false;
+	}
+	else
+	{
+		std::cout << "\n";
+
+		string key;
+		char spalte;
+		char zeile;
+
+
+		dkremer::concolinit();
+		dkremer::setcolor(green, black);
+		// dkremer::setcolor(red, blue);
+		std::cout << "    H G F E D C B A \n";
+
+		for (zeile = '1'; zeile <= '8'; zeile++)
+		{
+			std::cout << zeile << " |";
+			for (spalte = 'h'; spalte >= 'a'; spalte--)
+			{
+				key = std::string(1, spalte) + zeile;
+				std::cout << ((zeile + spalte) % 2 ? blue : red) << " ";
+				std::cout << spielmap[key].get_figur().get_darstellung();
+			}
+
+			std::cout << " | " << zeile << "\n";
+		}
+		std::cout << "    H G F E D C B A \n";
+		dkremer::setcolor(green, black);
+		richtung = true;
+	}
+}
+string Spiel::input()
+{
+	std::cin >> eingabe;
+	while (sizeof(eingabe) != 4
+		&& eingabeprüfung1.find(eingabe[1, 3]) != string::npos
+		&& eingabeprüfung2.find(eingabe[2, 4]) != string::npos)
+	{
+		std::cin >> eingabe;
+	}
+	return eingabe;
+}
+
+// Wenn input "Speichern", wird diese Methode aufgerufen
+void Spiel::speichern()
+{
+	speicherstand = spielmap;
+}
+
+// Wenn input "Laden", wird diese Methode aufgerufen
+void Spiel::laden()
+{
+	spielmap = speicherstand;
+	// Spiel wird fortgesetzt durch Verweis auf Spielzugmethodik
 }
