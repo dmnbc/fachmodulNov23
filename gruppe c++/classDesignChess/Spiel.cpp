@@ -1,27 +1,25 @@
 #include "Spiel.h"
 #include "Feld.h"
+#include "consolenfarbe.h"
+
+using namespace dkremer;
 
 Spiel::Spiel()
 {
-	// map fÃ¼llen
+	// map füllen
 	string key;
 	char spalte;
 	char zeile;
-    for (char spalte = 'a'; spalte <= 'h'; spalte++)
+
+	for (int nr = 0; nr < 64; nr++)
 	{
-        for (char zeile = '1'; zeile <= '8'; zeile++)
-        {
-            key = std::string(1, spalte) + zeile;
-            spielmap[key] = Feld(key);
-        }
-		
+		spalte = 'a' + nr % 8;
+		zeile = '1' + nr / 8;
+		key = std::string(1, spalte) + zeile;
+		spielmap[key] = Feld(key);
 	}
-
-
-
-	std::cout << __LINE__ << ": spiel.cpp " << "ctor Spiel()\n";
+	//std::cout << __LINE__ << ": spiel.cpp " << "ctor Spiel()\n";
 }
-
 
 void Spiel::anzeigen()
 /*{
@@ -41,14 +39,24 @@ void Spiel::anzeigen()
 	char spalte;
 	char zeile;
 	
-	for(zeile = '8'; zeile >= '1'; zeile--)
+
+	dkremer::concolinit();
+	dkremer::setcolor(green, black);
+	// dkremer::setcolor(red, blue);
+	std::cout << "    A B C D E F G H \n";
+
+	for (zeile = '8'; zeile >= '1'; zeile--)
 	{
+		std::cout << zeile << " |";
 		for (spalte = 'a'; spalte <= 'h'; spalte++)
 		{
 			key = std::string(1, spalte) + zeile;
-			std::cout << key << " ";
-			std::cout << spielmap[key].get_figure().get_darstellung()<<" ";			
+			std::cout << ((zeile + spalte) % 2 ? blue : red) << " ";
+			std::cout << spielmap[key].get_figur().get_darstellung();
 		}
-		std::cout <<  "\n" ;
+
+		std::cout << " | " << zeile << "\n";
 	}
+	std::cout << "    A B C D E F G H \n";
+	dkremer::setcolor(green, black);
 }

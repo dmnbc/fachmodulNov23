@@ -1,10 +1,10 @@
-// classDesignChess.cpp : Diese Datei enthÃ¤lt die Funktion "main". Hier beginnt und endet die AusfÃ¼hrung des Programms.
+// classDesignChess.cpp : Diese Datei enthält die Funktion "main". Hier beginnt und endet die Ausführung des Programms.
 //
 
+#include <iostream>
+#include "Spiel.h"
 #include "Feld.h"
 #include "Koenig.h"
-#include "Spiel.h"
-#include <iostream>
 
 
 int Feld::laufendeNr = 0;
@@ -13,5 +13,6 @@ int main()
 {
     Spiel s1;
     s1.anzeigen();
-    //Drehung fehlt noch
 }
+
+

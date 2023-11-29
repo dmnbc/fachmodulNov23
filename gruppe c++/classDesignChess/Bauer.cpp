@@ -9,8 +9,8 @@ Bauer::Bauer()
 Bauer::Bauer(char Fig)
 {
 	if (Fig == 'b') {
-		std::cout << 'b';
+		darstellung = 'b';
 	}
 	else
-		std::cout << 'B';
+		darstellung = 'B';
 }

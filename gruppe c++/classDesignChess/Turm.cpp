@@ -9,8 +9,8 @@ Turm::Turm()
 Turm::Turm(char Fig)
 {
 	if (Fig == 't') {
-		std::cout << 't';
+		darstellung = 't';
 	}
 	else
-		std::cout << 'T';
+		darstellung = 'T';
 }

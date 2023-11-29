@@ -4,6 +4,7 @@ class Figur
 {
 private:
 
+protected:
 	char darstellung;
 
 
@@ -16,5 +17,4 @@ public:
 	char get_darstellung() { return darstellung; }
 
 };
-
 

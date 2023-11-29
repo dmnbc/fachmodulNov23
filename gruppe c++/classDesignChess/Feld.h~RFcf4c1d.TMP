@@ -12,8 +12,7 @@ private:
 	int feldNr = 0;
 	int zeile = 0;
 	int spalte = 0;
-	std::string Off = " tplkdlpt ";
-
+	std::string Off = " tlpkdplt ";
 
 
 public:

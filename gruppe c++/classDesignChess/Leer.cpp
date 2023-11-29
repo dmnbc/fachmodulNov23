@@ -3,6 +3,6 @@
 
 Leer::Leer()
 {
-	std::cout << 'X';
+	darstellung = 'X';
 }
 

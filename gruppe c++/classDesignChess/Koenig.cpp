@@ -9,8 +9,8 @@ Koenig::Koenig()
 Koenig::Koenig(char Fig)
 {
 	if (Fig == 'k') {
-		std::cout << 'k';
+		darstellung = 'k';
 	}
 	else
-		std::cout << 'K';
+		darstellung = 'K';
 }

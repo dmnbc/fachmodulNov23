@@ -9,8 +9,8 @@ Laeufer::Laeufer()
 Laeufer::Laeufer(char Fig)
 {
 	if (Fig == 'l') {
-		std::cout << 'l';
+		darstellung = 'l';
 	}
 	else
-		std::cout << 'L';
+		darstellung = 'L';
 }

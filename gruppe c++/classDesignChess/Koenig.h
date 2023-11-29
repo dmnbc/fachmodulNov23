@@ -10,4 +10,3 @@ public:
     Koenig(char Fig);
 };
 
-

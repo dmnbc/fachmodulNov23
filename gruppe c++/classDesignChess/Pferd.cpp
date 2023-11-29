@@ -9,8 +9,8 @@ Pferd::Pferd()
 Pferd::Pferd(char Fig)
 {
 	if (Fig == 'p') {
-		std::cout << 'p';
+		darstellung = 'p';
 	}
 	else
-		std::cout << 'P';
+		darstellung = 'P';
 }

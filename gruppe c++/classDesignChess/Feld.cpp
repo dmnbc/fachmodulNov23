@@ -8,6 +8,7 @@
 #include "Pferd.h"
 #include "Laeufer.h"
 #include <iostream>
+#include "Spiel.h"
 
 Feld::Feld()
 {
@@ -32,43 +33,44 @@ Feld::Feld(std::string koordinaten) // a1 dunkel a2 hell a3 dunkel
 	spalte = koordinaten[0] - 'b';
 	// feldFarbe = (zeile + spalte) % 2 ? 176 : 32;
 	// std::cout << __LINE__ << " feld.cpp " << koordinaten << "\n";
-	// weiï¿½ groï¿½ - schwarz klein
+	// weiß groß - schwarz klein
 	
-
-	switch (zeile)
 	{
-	case 2:
-	case 7:
-		Bauer('B' + (zeile % 2) * 32);
-		break;
-	case 1:
-	case 8:
+		switch (zeile)
+		{
+		case 2:
+		case 7:
+			figur = Bauer('B' + (zeile % 2) * 32);
+			break;
+		case 1:
+		case 8:
 			switch (Off[spalte + 2] - (zeile % 2) * 32)
 			{
 			case 't':
 			case 'T':
-				Turm(Off[spalte + 2] - (zeile % 2) * 32);
+				figur = Turm(Off[spalte + 2] - (zeile % 2) * 32);
 				break;
 			case 'l':
 			case 'L':
-				Laeufer(Off[spalte + 2] - (zeile % 2) * 32);
+				figur = Laeufer(Off[spalte + 2] - (zeile % 2) * 32);
 				break;
 			case 'p':
 			case 'P':
-				Pferd(Off[spalte + 2] - (zeile % 2) * 32);
+				figur = Pferd(Off[spalte + 2] - (zeile % 2) * 32);
 				break;
 			case 'd':
 			case 'D':
-				Dame(Off[spalte + 2] - (zeile % 2) * 32);
+				figur = Dame(Off[spalte + 2] - (zeile % 2) * 32);
 				break;
 			case 'k':
 			case 'K':
-				Koenig(Off[spalte + 2] - (zeile % 2) * 32);
+				figur = Koenig(Off[spalte + 2] - (zeile % 2) * 32);
 				break;
 
 			}
-		break;
-	default:
-		Leer();
+			break;
+		default:
+			figur = Leer();
+		}
 	}
 }

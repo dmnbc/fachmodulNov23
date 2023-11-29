@@ -1,0 +1,17 @@
+#include "Feld.h"
+#include <iostream>
+
+Feld::Feld()
+{
+	feldNr = ++laufendeNr;
+	std::cout << __LINE__ << ":" << __FILE__ << "ctor Feld()" << feldNr << "\n";
+
+//	Wie kann ich die Bezeichnung und die Farbe ermitteln?
+//	es fehlen mir Zeilennummer und Spaltennummer, um (z+s)%2 zu rechnen
+//	aus der laufenden Nummer des Feldes (0 bis 63) kann man das berechnen
+
+
+
+
+
+}

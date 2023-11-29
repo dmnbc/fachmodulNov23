@@ -9,8 +9,8 @@ Dame::Dame()
 Dame::Dame(char Fig)
 {
 	if (Fig == 'd') {
-		std::cout << 'd';
+		darstellung = 'd';
 	}
 	else
-		std::cout << 'D';
+		darstellung = 'D';
 }
