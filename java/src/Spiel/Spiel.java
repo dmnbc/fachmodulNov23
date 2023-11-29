@@ -158,11 +158,13 @@ public class Spiel {
             return false;
         }
 
+        String inputLower = userInput.toLowerCase();
+
         // Extrahieren der Werte aus der Eingabe
-        char startSpalte = userInput.charAt(0);
-        char startZeile = userInput.charAt(1);
-        char zielSpalte = userInput.charAt(2);
-        char zielZeile = userInput.charAt(3);
+        char startSpalte = inputLower.charAt(0);
+        char startZeile = inputLower.charAt(1);
+        char zielSpalte = inputLower.charAt(2);
+        char zielZeile = inputLower.charAt(3);
 
         // Überprüfen, ob die Spalten- und Zeilenwerte im richtigen Bereich liegen
         if (!(startSpalte >= 'a' && startSpalte <= 'h') || !(zielSpalte >= 'a' && zielSpalte <= 'h') ||
