@@ -3,11 +3,10 @@ package Spiel;
 
 import Figur.*;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 import static KonsolenFarbe.KonsolenFarbe.*;
 
@@ -83,13 +82,15 @@ public class Spiel {
         System.out.println(bezeichnung);
 
     }
+
     //function to move a figure to a new field any appropriate outputs. It does NOT CHECK if the move is valid.
-    public void figurBewegen(String zug){
+    public void figurBewegen(Scanner scanner) {
+        String zug = spielerEingabe(scanner);
         //TODO message on taking an enemy piece
         //TODO message on putting enemy in check
-        spielMap.get(zug.substring(2,4)).setFigur(spielMap.get(zug.substring(0,2)).getFigure()); //move the Figur to the destination field
-        zugVerlauf.put(getZugNummer(), spielMap.get(zug.substring(0,2)).getFigure().getSymbol() + zug); //add move to zugVerlauf with figur that was moved
-        spielMap.get(zug.substring(0,2)).setFigur(null); //set source field to null
+        spielMap.get(zug.substring(2, 4)).setFigur(spielMap.get(zug.substring(0, 2)).getFigure()); //move the Figur to the destination field
+        zugVerlauf.put(getZugNummer(), spielMap.get(zug.substring(0, 2)).getFigure().getSymbol() + zug); //add move to zugVerlauf with figur that was moved
+        spielMap.get(zug.substring(0, 2)).setFigur(null); //set source field to null
         //TODO remove this test of zugVerlauf
         System.out.println(zugVerlauf);
         zugNummer++;
@@ -134,21 +135,16 @@ public class Spiel {
             e.printStackTrace();
         }
     }
-/*    public Spiel() { // Methode für das Spielbrett als Array
 
-       for (int z = 0; z < 8; z++) {
-           for (int s = 0; s < 8; s++) {
-               spielFeld[z][s] = new Feld();
+    private String spielerEingabe(Scanner scanner) {
 
-           }
-       }
-   }
-   public void anzeigen() { // Anzeigen des Array Spielbretts
-       for (Feld[] zeile : spielFeld) {
-           for (Feld feld : zeile) {
-               System.out.print(feld.getFeldFarbe());
-           }
-           System.out.println();
-       }
-   } */
+        String userInput;
+    //    do {
+               System.out.println("Bitte Spielzug eingeben.");
+               userInput = scanner.next();
+
+        //    } while (!istKorrekteKoordinatenEingabe);
+
+        return userInput;
+    }
 }
