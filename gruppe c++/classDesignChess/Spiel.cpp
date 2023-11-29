@@ -47,7 +47,7 @@ void Spiel::anzeigen()
 		{
 			key = std::string(1, spalte) + zeile;
 			std::cout << key << " ";
-			std::cout << spielmap[key].get_Figure().darstellung()<<" ";			
+			std::cout << spielmap[key].get_figure().get_darstellung()<<" ";			
 		}
 		std::cout <<  "\n" ;
 	}
