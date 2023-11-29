@@ -140,7 +140,7 @@ public class Spiel {
 
         String userInput;
         do {
-            System.out.println("Bitte Spielzug eingeben.");
+            System.out.println("Bitte Spielzug eingeben (Format: a1b2):");
             userInput = scanner.next();
 
         } while (!istKorrekteKoordinatenEingabe(userInput));
