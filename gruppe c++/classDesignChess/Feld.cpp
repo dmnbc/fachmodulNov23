@@ -7,6 +7,15 @@
 #include "Dame.h"
 #include "Pferd.h"
 #include "Laeufer.h"
+#include "Feld.h"
+#include <string>
+#include "Leer.h"
+#include "Bauer.h"
+#include "Turm.h"
+#include "Koenig.h"
+#include "Dame.h"
+#include "Pferd.h"
+#include "Laeufer.h"
 #include <iostream>
 #include "Spiel.h"
 
@@ -34,7 +43,7 @@ Feld::Feld(std::string koordinaten) // a1 dunkel a2 hell a3 dunkel
 	// feldFarbe = (zeile + spalte) % 2 ? 176 : 32;
 	// std::cout << __LINE__ << " feld.cpp " << koordinaten << "\n";
 	// weiß groß - schwarz klein
-	
+
 	{
 		switch (zeile)
 		{

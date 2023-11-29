@@ -1,4 +1,4 @@
-// classDesignChess.cpp : Diese Datei enthält die Funktion "main". Hier beginnt und endet die Ausführung des Programms.
+// // classDesignChess.cpp : Diese Datei enthält die Funktion "main". Hier beginnt und endet die Ausführung des Programms.
 //
 
 #include <iostream>
@@ -13,6 +13,6 @@ int main()
 {
     Spiel s1;
     s1.anzeigen();
+    s1.anzeigen();
+    s1.input();
 }
-
-

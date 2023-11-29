@@ -1,15 +1,13 @@
 #pragma once
 #include "Figur.h"
-class Turm :
+
+class Koenigin :
     public Figur
 {
-    char turm;
-
 public:
-    Turm();
+    Koenigin();
 
-    Turm(char Fig);
+    Koenigin(char Fig);
 
-    
 };
 

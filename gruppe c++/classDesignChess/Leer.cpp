@@ -5,4 +5,3 @@ Leer::Leer()
 {
 	darstellung = 'X';
 }
-
