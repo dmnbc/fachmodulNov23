@@ -19,6 +19,8 @@ private:
 	string eingabe;
 	string eingabeprüfung1 = "ABCDEFGHabcdefgh";
 	string eingabeprüfung2 = "12345678";
+	string startpunkt, startpunkt_s, startpunkt_z;
+	string zielpunkt, zielpunkt_s, zielpunkt_z;
 
 public:
 	Spiel();
@@ -26,6 +28,7 @@ public:
 	void anzeigen();
 	void speichern();
 	void laden();
+	void ziehen();
 	string input();
 
 
