@@ -1,6 +1,8 @@
 package Figur;
 
-public class Figur {
+import java.util.List;
+
+public abstract class Figur {
     private final String color; // Entweder Weiß oder Schwarz
     private final char symbol; // UniCode Zeichen für die Spielfiguren.
     private final String name;
@@ -15,7 +17,7 @@ public class Figur {
         this.symbol = symbol;
         this.name = getClass().getSimpleName();
     }
-
+    public abstract List<String> getPossibleMoves(int zeile,int spalte);
     public String getColor() {
         return color;
     }
