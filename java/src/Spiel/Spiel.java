@@ -84,8 +84,7 @@ public class Spiel {
     }
 
     //function to move a figure to a new field any appropriate outputs. It does NOT CHECK if the move is valid.
-    public void figurBewegen(Scanner scanner) {
-        String zug = spielerEingabe(scanner);
+    public void figurBewegen(String zug) {
         //TODO message on taking an enemy piece
         //TODO message on putting enemy in check
         spielMap.get(zug.substring(2, 4)).setFigur(spielMap.get(zug.substring(0, 2)).getFigure()); //move the Figur to the destination field
@@ -136,15 +135,48 @@ public class Spiel {
         }
     }
 
-    private String spielerEingabe(Scanner scanner) {
-
+    public String spielerEingabe(Scanner scanner) {
         String userInput;
-    //    do {
-               System.out.println("Bitte Spielzug eingeben.");
-               userInput = scanner.next();
 
-        //    } while (!istKorrekteKoordinatenEingabe);
+        do {
+            System.out.println("Bitte Spielzug eingeben (Format: a1b2):");
+            userInput = scanner.next();
 
-        return userInput;
+        } while (!istKorrekteKoordinatenEingabe(userInput));
+
+        return userInput.toLowerCase();
+    }
+
+    private boolean istKorrekteKoordinatenEingabe(String userInput) {
+        // Überprüfen, ob die Eingabe leer oder null ist
+        if (userInput == null || userInput.isEmpty()) {
+            return false;
+        }
+        // Überprüfen, ob die Eingabe die erwartete Länge hat
+        if (userInput.length() != 4) {
+            return false;
+        }
+
+        String inputLower = userInput.toLowerCase();
+
+        // Extrahieren der Werte aus der Eingabe
+        char startSpalte = inputLower.charAt(0);
+        char startZeile = inputLower.charAt(1);
+        char zielSpalte = inputLower.charAt(2);
+        char zielZeile = inputLower.charAt(3);
+
+        // Überprüfen, ob die Spalten- und Zeilenwerte im richtigen Bereich liegen
+        if (!(startSpalte >= 'a' && startSpalte <= 'h') || !(zielSpalte >= 'a' && zielSpalte <= 'h') ||
+                !(startZeile >= '1' && startZeile <= '8') || !(zielZeile >= '1' && zielZeile <= '8')) {
+            return false;
+        }
+
+        // Start- und Zielkoordinaten dürfen nicht gleich sein
+        if (startSpalte == zielSpalte && startZeile == zielZeile) {
+            return false;
+        }
+
+        // Rückgabe true, wenn alle Bedingungen erfüllt sind
+        return true;
     }
 }
