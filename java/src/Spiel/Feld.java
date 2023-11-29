@@ -2,6 +2,8 @@ package Spiel;
 
 import Figur.Figur;
 
+import java.util.List;
+
 public class Feld {
     private String feldFarbe ;
     private Figur figur;
@@ -49,5 +51,10 @@ public class Feld {
 
     public void setFigur(Figur figur) {
         this.figur = figur;
+    }
+    public List<String> getPossibleMoves(){
+        if(this.figur!=null){
+            return figur.getPossibleMoves(zeile,spalte);
+        }else return null;
     }
 }
