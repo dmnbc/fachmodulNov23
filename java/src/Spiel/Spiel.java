@@ -95,22 +95,41 @@ public class Spiel {
         zugNummer++;
 
     }
+    //based on zugNummer a Field will be checked to see if contains a figure of the current players color. return false means enemy or empty.
+    // should accept any string of length 2 or greater where the first two char are valid coordinates
+    public boolean eigeneFarbe(String zug){
+        if (this.spielMap.get(zug.substring(0, 2)).getFigure() == null){
+            return false;
+        }
+        String currentPlayer = this.zugNummer%2 == 0 ? "Weiß" : "Schwarz";
+        return this.spielMap.get(zug.substring(0,2)).getFigure().getColor().equals(currentPlayer);
+    }
+    public boolean gegnerFarbe(String zug){
+        if (this.spielMap.get(zug.substring(0, 2)).getFigure() == null){
+            return false;
+        }
+        String currentPlayer = this.zugNummer%2 == 1 ? "Weiß" : "Schwarz";
+        return this.spielMap.get(zug.substring(0,2)).getFigure().getColor().equals(currentPlayer);
+    }
+    public boolean feldLeer(String zug){
+        return this.spielMap.get(zug.substring(0, 2)).getFigure() == null;
+    }
 
     /**
      * Die Methode speichert die Zugnummer des Spiels und für jede vorhandene Figur die Koordinate, Farbe und Namen.
      *
-     * @param spiel    Das Spielfeld, das als Container der Felder und der dazugehörigen Figuren dient.
+     * @param currentGame    Das Spielfeld, das als Container der Felder und der dazugehörigen Figuren dient.
      * @param fileName Der Name der Textdatei in der die Daten hinterlegt werden.
      */
-    public void save(Map<String, Feld> spiel, String fileName) {
+    public void save(Map<String, Feld> currentGame, String fileName) {
         String filePath = "java\\src\\savedFiles\\" + fileName + ".txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             writer.write("Runde: " + getZugNummer());
             writer.newLine();
-            for (String key : spiel.keySet()) {
-                if (spiel.get(key).getFigure() != null) {
-                    writer.write(key + " " + spiel.get(key).getFigure().getColor() + " "
-                            + spiel.get(key).getFigure().getName());
+            for (String key : currentGame.keySet()) {
+                if (currentGame.get(key).getFigure() != null) {
+                    writer.write(key + " " + currentGame.get(key).getFigure().getColor() + " "
+                            + currentGame.get(key).getFigure().getName());
                     writer.newLine();
                 }
             }
@@ -137,9 +156,10 @@ public class Spiel {
 
     public String spielerEingabe(Scanner scanner) {
         String userInput;
+        String currentPlayer = this.zugNummer%2 == 0 ? "Weiß" : "Schwarz";
 
         do {
-            System.out.println("Bitte Spielzug eingeben (Format: a1b2):");
+            System.out.println(currentPlayer + ", du bist dran. Bitte Spielzug eingeben (Format: a1b2):");
             userInput = scanner.next();
 
         } while (!istKorrekteKoordinatenEingabe(userInput));
@@ -173,6 +193,12 @@ public class Spiel {
 
         // Start- und Zielkoordinaten dürfen nicht gleich sein
         if (startSpalte == zielSpalte && startZeile == zielZeile) {
+            return false;
+        }
+        if (!this.eigeneFarbe(userInput)){
+            return false;
+        }
+        if (feldLeer(userInput)){
             return false;
         }
 

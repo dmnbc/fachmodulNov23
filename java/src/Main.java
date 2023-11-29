@@ -11,13 +11,13 @@ public class Main {
         // Ansicht Spieler Weiß
         spiel.anzeigen("Weiß");
         // simple test of figurBewegen()
-        System.out.println("pawn a2 to a4");
         spiel.figurBewegen(spiel.spielerEingabe(scanner));
+        //color test
+        System.out.println("a2 ist leer: " + spiel.feldLeer("a2"));
+        System.out.println("a2 ist eigene Figur: " + spiel.eigeneFarbe("a2"));
+        System.out.println("a2 ist gegner Figur: " + spiel.gegnerFarbe("a2"));
         // Ansicht Spieler Schwarz
         spiel.anzeigen("Schwarz");
-        System.out.println("pawn h7 to h5");
-        spiel.figurBewegen(spiel.spielerEingabe(scanner));
-        spiel.anzeigen("Weiß");
 
     }
 }
