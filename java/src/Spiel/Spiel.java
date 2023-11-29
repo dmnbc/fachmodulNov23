@@ -139,12 +139,43 @@ public class Spiel {
     private String spielerEingabe(Scanner scanner) {
 
         String userInput;
-    //    do {
-               System.out.println("Bitte Spielzug eingeben.");
-               userInput = scanner.next();
+        do {
+            System.out.println("Bitte Spielzug eingeben.");
+            userInput = scanner.next();
 
-        //    } while (!istKorrekteKoordinatenEingabe);
+        } while (!istKorrekteKoordinatenEingabe(userInput));
 
         return userInput;
+    }
+
+    private boolean istKorrekteKoordinatenEingabe(String userInput) {
+        // Überprüfen, ob die Eingabe leer oder null ist
+        if (userInput == null || userInput.isEmpty()) {
+            return false;
+        }
+        // Überprüfen, ob die Eingabe die erwartete Länge hat
+        if (userInput.length() != 4) {
+            return false;
+        }
+
+        // Extrahieren der Werte aus der Eingabe
+        char startSpalte = userInput.charAt(0);
+        char startZeile = userInput.charAt(1);
+        char zielSpalte = userInput.charAt(2);
+        char zielZeile = userInput.charAt(3);
+
+        // Überprüfen, ob die Spalten- und Zeilenwerte im richtigen Bereich liegen
+        if (!(startSpalte >= 'a' && startSpalte <= 'h') || !(zielSpalte >= 'a' && zielSpalte <= 'h') ||
+                !(startZeile >= '1' && startZeile <= '8') || !(zielZeile >= '1' && zielZeile <= '8')) {
+            return false;
+        }
+
+        // Start- und Zielkoordinaten dürfen nicht gleich sein
+        if (startSpalte == zielSpalte && startZeile == zielZeile) {
+            return false;
+        }
+
+        // Rückgabe true, wenn alle Bedingungen erfüllt sind
+        return true;
     }
 }
