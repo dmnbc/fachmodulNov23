@@ -84,8 +84,7 @@ public class Spiel {
     }
 
     //function to move a figure to a new field any appropriate outputs. It does NOT CHECK if the move is valid.
-    public void figurBewegen(Scanner scanner) {
-        String zug = spielerEingabe(scanner);
+    public void figurBewegen(String zug) {
         //TODO message on taking an enemy piece
         //TODO message on putting enemy in check
         spielMap.get(zug.substring(2, 4)).setFigur(spielMap.get(zug.substring(0, 2)).getFigure()); //move the Figur to the destination field
@@ -136,16 +135,16 @@ public class Spiel {
         }
     }
 
-    private String spielerEingabe(Scanner scanner) {
-
+    public String spielerEingabe(Scanner scanner) {
         String userInput;
+
         do {
             System.out.println("Bitte Spielzug eingeben (Format: a1b2):");
             userInput = scanner.next();
 
         } while (!istKorrekteKoordinatenEingabe(userInput));
 
-        return userInput;
+        return userInput.toLowerCase();
     }
 
     private boolean istKorrekteKoordinatenEingabe(String userInput) {

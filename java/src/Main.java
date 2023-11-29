@@ -11,11 +11,11 @@ public class Main {
         spiel.anzeigen("Weiß");
         //simple test of figurBewegen()
         System.out.println("pawn a2 to a4");
-        spiel.figurBewegen(scanner);
+        spiel.figurBewegen(spiel.spielerEingabe(scanner));
         //Ansicht Spieler Schwarz
         spiel.anzeigen("Schwarz");
         System.out.println("pawn h7 to h5");
-        spiel.figurBewegen(scanner);
+        spiel.figurBewegen(spiel.spielerEingabe(scanner));
         spiel.anzeigen("Weiß");
 
     }
