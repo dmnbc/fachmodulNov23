@@ -25,7 +25,7 @@ public class Feld {
     public Feld(String koordinaten) {
         feldNr = laufendeNr++;
         zeile = koordinaten.charAt(1) - '0';
-        spalte = koordinaten.charAt(0) - 'b';
+        spalte = koordinaten.charAt(0) - '`';
         feldFarbe =  ((zeile + spalte) % 2 == 0 ? hell : dunkel);
     }
 
