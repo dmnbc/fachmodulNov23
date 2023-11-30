@@ -83,15 +83,19 @@ public class Spiel {
 
     //function to move a figure to a new field any appropriate outputs. It does NOT CHECK if the move is valid.
     public void figurBewegen(String zug) {
-        //TODO message on taking an enemy piece
-        //TODO message on putting enemy in check
-        spielMap.get(zug.substring(2, 4)).setFigur(spielMap.get(zug.substring(0, 2)).getFigure()); //move the Figur to the destination field
-        zugVerlauf.put(getZugNummer(), spielMap.get(zug.substring(0, 2)).getFigure().getSymbol() + zug); //add move to zugVerlauf with figur that was moved
-        spielMap.get(zug.substring(0, 2)).setFigur(null); //set source field to null
-        //TODO remove this test of zugVerlauf
-        System.out.println(zugVerlauf);
-        zugNummer++;
-
+        if (isPossibleMove(zug)) {
+            //TODO message on taking an enemy piece
+            //TODO message on putting enemy in check
+            spielMap.get(zug.substring(2, 4)).setFigur(spielMap.get(zug.substring(0, 2)).getFigure()); //move the Figur to the destination field
+            zugVerlauf.put(getZugNummer(), spielMap.get(zug.substring(0, 2)).getFigure().getSymbol() + zug); //add move to zugVerlauf with figur that was moved
+            spielMap.get(zug.substring(0, 2)).setFigur(null); //set source field to null
+            //TODO remove this test of zugVerlauf
+            System.out.println(zugVerlauf);
+            zugNummer++;
+        } else {
+            System.out.println("Unzulässiger Zug");
+            spielerEingabe();
+        }
     }
 
     //based on zugNummer a Field will be checked to see if contains a figure of the current players color. return false means enemy or empty.
@@ -229,6 +233,20 @@ public class Spiel {
 
         // Rückgabe true, wenn alle Bedingungen erfüllt sind
         return true;
+    }
+
+    public boolean isPossibleMove(String userInput) {
+        boolean isPossible = false;
+        if (istKorrekteKoordinatenEingabe(userInput)) {
+            Feld feld = spielMap.get(userInput.substring(0, 2));
+
+            // Überprüfen, ob das Feld und die möglichen Züge vorhanden sind
+            if (feld.getPossibleMoves() != null) {
+                String zielFeld = userInput.substring(2, 4);
+                isPossible = feld.getPossibleMoves().contains(zielFeld);
+            }
+        }
+        return isPossible;
     }
 
     private void load() {
