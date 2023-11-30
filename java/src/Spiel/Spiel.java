@@ -4,20 +4,19 @@ package Spiel;
 import Figur.*;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 import static KonsolenFarbe.KonsolenFarbe.*;
 
 public class Spiel {
     Map<String, Feld> spielMap = new HashMap<>();
     int zugNummer;
+    private Scanner scanner;
     HashMap<Integer, String> zugVerlauf = new HashMap<>(); //bei jeden figurBewegen(), (zugNummer, zug) in zugVerlauf speichern
 
-    public Spiel() {
+    public Spiel(Scanner scanner) {
         String key;
-
+        this.scanner = scanner;
         char spalte;
         char zeile;
         for (int nr = 0; nr < 64; nr++) {
@@ -93,8 +92,9 @@ public class Spiel {
         zugNummer++;
 
     }
+
     //based on zugNummer a Field will be checked to see if contains a figure of the current players color. return false means enemy or empty.
-    // should accept any string of length 2 or greater where the first two char are valid coordinates
+    // should accept any string of length 2 or greater where the first two char are valid coordinates<<<<<<< java-lex-refa
     public boolean eigeneFarbe(String zug){
         if (spielMap.get(zug.substring(0, 2)).getFigure() == null){
             return false;
@@ -116,8 +116,8 @@ public class Spiel {
     /**
      * Die Methode speichert die Zugnummer des Spiels und für jede vorhandene Figur die Koordinate, Farbe und Namen.
      *
-     * @param currentGame    Das Spielfeld, das als Container der Felder und der dazugehörigen Figuren dient.
-     * @param fileName Der Name der Textdatei in der die Daten hinterlegt werden.
+     * @param currentGame Das Spielfeld, das als Container der Felder und der dazugehörigen Figuren dient.
+     * @param fileName    Der Name der Textdatei in der die Daten hinterlegt werden.
      */
     public void save(Map<String, Feld> currentGame, String fileName) {
         String filePath = "java\\src\\savedFiles\\" + fileName + ".txt";
@@ -137,27 +137,40 @@ public class Spiel {
     }
 
     /**
-     * Diese Methode speichert in einer seperaten Zeile den ausgeführten Zug.
-     *
-     * @param zug      Ein String der die Eingabe der ZugKoordinaten annimmt.
-     * @param fileName Der Name der Textdatei in der die Daten hinterlegt werden.
+     * Diese Methode speichert nach Aufruf den Zugverlauf in einer Textdatei.
      */
-    public void saveZug(String zug, String fileName) {
-        String filePath = "java\\src\\savedFiles\\" + fileName + ".txt";
+    private void saveMap() {
+        System.out.println("Bitte Namen für Speicherstand eingeben: ");
+        String fileName = scanner.next();
+        String folderPath = "java\\src\\savedFiles\\";
+        String filePath = folderPath + fileName + ".txt";
+
+        // Überprüfen, ob der Ordner existiert, andernfalls erstellen
+        File folder = new File(folderPath);
+        if (!folder.exists()) {
+            if (folder.mkdirs()) {
+                System.out.println("Speicherordner erstellt: " + folderPath);
+            } else {
+                System.out.println("Fehler beim Erstellen des Ordners: " + folderPath);
+                return;
+            }
+        }
+
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            writer.write(zug);
+            writer.write(zugVerlauf.toString());
             writer.newLine();
+            System.out.println("Spielstand erfolreich erstellt: " + filePath);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public String spielerEingabe(Scanner scanner) {
+    public String spielerEingabe() {
         String userInput;
         String currentPlayer = zugNummer%2 == 0 ? "Weiß" : "Schwarz";
 
         do {
-            System.out.println(currentPlayer + ", du bist dran. Bitte Spielzug eingeben (Format: a1b2):");
+            System.out.println(getCurrentPlayer() + ", du bist dran. Bitte Spielzug eingeben (Format: a1b2):");
             userInput = scanner.next();
 
         } while (!istKorrekteKoordinatenEingabe(userInput));
@@ -165,18 +178,30 @@ public class Spiel {
         return userInput.toLowerCase();
     }
 
+    private String getCurrentPlayer() {
+        return this.zugNummer % 2 == 0 ? "Weiß" : "Schwarz";
+    }
+
     private boolean istKorrekteKoordinatenEingabe(String userInput) {
         // Überprüfen, ob die Eingabe leer oder null ist
         if (userInput == null || userInput.isEmpty()) {
             return false;
         }
+
         // Überprüfen, ob die Eingabe die erwartete Länge hat
         if (userInput.length() != 4) {
             return false;
         }
 
         String inputLower = userInput.toLowerCase();
-
+        if (userInput.equals("save")) {
+            saveMap();
+            return false;
+        }
+        if (userInput.equals("load")) {
+            load();
+            return false;
+        }
         // Extrahieren der Werte aus der Eingabe
         char startSpalte = inputLower.charAt(0);
         char startZeile = inputLower.charAt(1);
@@ -196,11 +221,71 @@ public class Spiel {
         if (!eigeneFarbe(userInput)){
             return false;
         }
-        if (feldLeer(userInput)){
+        if (feldLeer(userInput)) {
             return false;
         }
 
         // Rückgabe true, wenn alle Bedingungen erfüllt sind
         return true;
+    }
+
+    private void load() {
+
+        File directory = new File("java/src/savedFiles");
+        if (directory.exists() && directory.isDirectory()) {
+            File[] files = directory.listFiles();
+            if (files != null) {
+                System.out.println("Mögliche Speicherstände zum laden: ");
+                for (File file : files) {
+                    if (file.isFile() && file.getName().endsWith(".txt")) {
+                        System.out.println(file.getName().substring(0, file.getName().length() - 4));
+                    }
+                }
+                System.out.println("Welcher soll geladen werden?:");
+                final String fileName = scanner.next();
+
+                if (!Arrays.stream(files).anyMatch(file -> file.getName().equals(fileName + ".txt"))) {
+                    load();
+                } else {
+
+                   //auslesen der Speicherdatei
+                    String zuLaden = "java/src/savedFiles/" + fileName + ".txt";
+                    try (BufferedReader reader = new BufferedReader(new FileReader(zuLaden))) {
+                        String[] line = reader.readLine().split(",");
+                        int lineNumber = 0;
+                        List<String> newZugVerlauf = new LinkedList<>();
+
+                        for (int i = 0; i < line.length; i++) {
+                            newZugVerlauf.add(line[i].substring(4, 8));
+                            lineNumber++;
+                        }
+                        System.out.println("Ab welchen Zug laden? Max von diesem Speicherstand ist: " + lineNumber);
+                        int spielStand = scanner.nextInt();
+                        while (spielStand >= lineNumber) {
+                            spielStand = scanner.nextInt();
+                        }
+                        // Reset des kompletten Schachbretts und NeuAufstellung der Figuren
+                        zugNummer = 0;
+                        zugVerlauf = new HashMap<>();
+                        for (Feld feld : spielMap.values()) {
+                            feld.setFigur(null);
+                        }
+                        initialisiereFiguren();
+                        // Spiel wird bis zum gewünschten Zug neu durchlaufen.
+                        for (int i = 0; i < spielStand; i++) {
+                            figurBewegen(newZugVerlauf.get(i));
+                        }
+                        anzeigen(zugNummer % 2 == 0 ? "Weiß" : "Schwarz");
+
+                        System.out.println("Spielstand erfolgreich geladen: " + fileName);
+
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        } else {
+            System.out.println("Es gibt keine Speicherstände zum laden:");
+        }
     }
 }
