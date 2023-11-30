@@ -7,18 +7,17 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Feld.laufendeNr = 0;
-        int zugNr = 0;
         Scanner scanner = new Scanner(System.in);
         Spiel spiel = new Spiel(scanner);
 
         // Ansicht Spieler Weiß
         while(true){
             spiel.anzeigen(spiel.getCurrentPlayer());
-            String move = spiel.spielerEingabe();
+            String move = spiel.spielerEingabe(spiel);
             List<String> possibleMoves = spiel.getSpielMap().get(move.substring(0,2)).getPossibleMoves(spiel);
             //System.out.println(possibleMoves);
             if (possibleMoves.contains(move.substring(2,4))) {
-                spiel.figurBewegen(move);
+                spiel.figurBewegen(move,spiel);
             }else {
                 System.out.println("Kein erlaubter Zug");
             }

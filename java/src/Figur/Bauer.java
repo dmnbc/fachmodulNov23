@@ -9,8 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 public class Bauer extends Figur {
-    public Bauer(String color) {
-        super(color, (!color.equals("Weiß") ? '\u2659' : '\u265F'));
     public Bauer(String color, Map<String, Feld> spielMap) {
         super(color, (!color.equals("Weiß") ? '\u2659' : '\u265F'),  spielMap);
     }

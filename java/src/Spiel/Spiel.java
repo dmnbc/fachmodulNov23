@@ -28,6 +28,7 @@ public class Spiel {
         initialisiereFiguren();
     }
 
+
     public int getZugNummer() {return zugNummer;}
 
     private void initialisiereFiguren() {
@@ -52,6 +53,10 @@ public class Spiel {
         spielMap.get('f' + "" + 8).setFigur(new Laeufer("Schwarz",  spielMap));
         spielMap.get('g' + "" + 8).setFigur(new Springer("Schwarz",  spielMap));
         spielMap.get('h' + "" + 8).setFigur(new Turm("Schwarz",  spielMap));
+    }
+
+    public Map<String, Feld> getSpielMap() {
+        return spielMap;
     }
 
     public void anzeigen(String color) {
@@ -80,8 +85,8 @@ public class Spiel {
     }
 
     //function to move a figure to a new field any appropriate outputs. It does NOT CHECK if the move is valid.
-    public void figurBewegen(String zug) {
-        if (isPossibleMove(zug)) {
+    public void figurBewegen(String zug,Spiel spiel) {
+        if (isPossibleMove(zug,spiel)) {
             //TODO message on taking an enemy piece
             //TODO message on putting enemy in check
             spielMap.get(zug.substring(2, 4)).setFigur(spielMap.get(zug.substring(0, 2)).getFigure()); //move the Figur to the destination field
@@ -169,7 +174,7 @@ public class Spiel {
         }
     }
 
-    public String spielerEingabe() {
+    public String spielerEingabe(Spiel spiel) {
         String userInput;
         String currentPlayer = zugNummer%2 == 0 ? "Weiß" : "Schwarz";
 
@@ -177,7 +182,7 @@ public class Spiel {
             System.out.println(getCurrentPlayer() + ", du bist dran. Bitte Spielzug eingeben (Format: a1b2):");
             userInput = scanner.next();
 
-        } while (!istKorrekteKoordinatenEingabe(userInput));
+        } while (!istKorrekteKoordinatenEingabe(userInput,spiel));
 
         return userInput.toLowerCase();
     }
@@ -186,7 +191,7 @@ public class Spiel {
         return this.zugNummer % 2 == 0 ? "Weiß" : "Schwarz";
     }
 
-    private boolean istKorrekteKoordinatenEingabe(String userInput) {
+    private boolean istKorrekteKoordinatenEingabe(String userInput,Spiel spiel) {
         // Überprüfen, ob die Eingabe leer oder null ist
         if (userInput == null || userInput.isEmpty()) {
             return false;
@@ -203,7 +208,7 @@ public class Spiel {
             return false;
         }
         if (userInput.equals("load")) {
-            load();
+            load(spiel);
             return false;
         }
         // Extrahieren der Werte aus der Eingabe
@@ -285,23 +290,22 @@ public class Spiel {
         }
         return wegFrei;
     }
-}
 
-    public boolean isPossibleMove(String userInput) {
+    public boolean isPossibleMove(String userInput,Spiel spiel) {
         boolean isPossible = false;
-        if (istKorrekteKoordinatenEingabe(userInput)) {
+        if (istKorrekteKoordinatenEingabe(userInput,spiel)) {
             Feld feld = spielMap.get(userInput.substring(0, 2));
 
             // Überprüfen, ob das Feld und die möglichen Züge vorhanden sind
-            if (feld.getPossibleMoves() != null) {
+            if (feld.getPossibleMoves(spiel) != null) {
                 String zielFeld = userInput.substring(2, 4);
-                isPossible = feld.getPossibleMoves().contains(zielFeld);
+                isPossible = feld.getPossibleMoves(spiel).contains(zielFeld);
             }
         }
         return isPossible;
     }
 
-    private void load() {
+    private void load(Spiel spiel) {
 
         File directory = new File("java/src/savedFiles");
         if (directory.exists() && directory.isDirectory()) {
@@ -317,7 +321,7 @@ public class Spiel {
                 final String fileName = scanner.next();
 
                 if (!Arrays.stream(files).anyMatch(file -> file.getName().equals(fileName + ".txt"))) {
-                    load();
+                    load(spiel);
                 } else {
 
                    //auslesen der Speicherdatei
@@ -345,7 +349,7 @@ public class Spiel {
                         initialisiereFiguren();
                         // Spiel wird bis zum gewünschten Zug neu durchlaufen.
                         for (int i = 0; i < spielStand; i++) {
-                            figurBewegen(newZugVerlauf.get(i));
+                            figurBewegen(newZugVerlauf.get(i),spiel);
                         }
                         anzeigen(zugNummer % 2 == 0 ? "Weiß" : "Schwarz");
 

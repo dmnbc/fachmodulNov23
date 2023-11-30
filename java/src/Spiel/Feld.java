@@ -55,7 +55,7 @@ public class Feld {
     }
     public List<String> getPossibleMoves(Spiel spiel){
         if(figur!=null){
-            return figur.getPossibleMoves(zeile,spalte);
+            return figur.getPossibleMoves(zeile,spalte,spiel);
         }else return null;
     }
 }
