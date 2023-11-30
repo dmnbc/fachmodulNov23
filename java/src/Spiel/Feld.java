@@ -46,14 +46,14 @@ public class Feld {
     }
 
     public Figur getFigure() {
-        return this.figur;
+        return figur;
     }
 
     public void setFigur(Figur figur) {
         this.figur = figur;
     }
     public List<String> getPossibleMoves(){
-        if(this.figur!=null){
+        if(figur!=null){
             return figur.getPossibleMoves(zeile,spalte);
         }else return null;
     }
