@@ -11,7 +11,7 @@ public class Main {
 
         // Ansicht Spieler Weiß
         while(true){
-            spiel.anzeigen("Weiß");
+            spiel.anzeigen(spiel.getCurrentPlayer());
             spiel.figurBewegen(spiel.spielerEingabe());
         }
         // simple test of figurBewegen()

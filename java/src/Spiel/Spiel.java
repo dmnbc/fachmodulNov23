@@ -182,7 +182,7 @@ public class Spiel {
         return userInput.toLowerCase();
     }
 
-    private String getCurrentPlayer() {
+    public String getCurrentPlayer() {
         return this.zugNummer % 2 == 0 ? "Weiß" : "Schwarz";
     }
 
