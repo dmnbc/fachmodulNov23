@@ -13,12 +13,14 @@ public class Dame extends Figur {
     @Override
     public List<String> getPossibleMoves(int zeile, int spalte, Spiel spiel) {
         List<String> moves = new ArrayList<>();
-
+        String key;
         for (int i = 1; i <= 8; i++) {
-            if (i != zeile) {
+            key = "" + (char) (spalte + 'a' - 1) + (char) (zeile + '1' - 1) + (char) (spalte + 'a' - 1) + i;
+            if (i != zeile && spiel.isWegFrei(key,spiel)) {
                 moves.add("" + (char) (spalte + 'a' - 1) + i);
             }
-            if (i != spalte) {
+            key = "" + (char) (spalte + 'a' - 1) + (char) (zeile + '1' - 1) + (char) (i + 'a' - 1) + (char) (zeile + '1' - 1);
+            if (i != spalte && spiel.isWegFrei(key,spiel)) {
                 moves.add("" + (char) (i + 'a' - 1) + zeile);
             }
         }
@@ -27,12 +29,14 @@ public class Dame extends Figur {
             if (i != 0) {
                 int newZeile = zeile + i;
                 int newSpalte = spalte + i;
-                if (newZeile >= 1 && newZeile <= 8 && newSpalte >= 1 && newSpalte <= 8) {
+                key = "" + (char) (spalte + 'a' - 1) + (char) (zeile + '1' - 1) + (char) (newSpalte + 'a' - 1) + newZeile;
+                if (newZeile >= 1 && newZeile <= 8 && newSpalte >= 1 && newSpalte <= 8 && spiel.isWegFrei(key,spiel)) {
                     moves.add("" + (char) (newSpalte + 'a' - 1) + newZeile);
                 }
-
                 newSpalte = spalte - i;
-                if (newZeile >= 1 && newZeile <= 8 && newSpalte >= 1 && newSpalte <= 8) {
+                key = "" + (char) (spalte + 'a' - 1) + (char) (zeile + '1' - 1) + (char) (newSpalte + 'a' - 1) + newZeile;
+
+                if (newZeile >= 1 && newZeile <= 8 && newSpalte >= 1 && newSpalte <= 8 && spiel.isWegFrei(key,spiel)) {
                     moves.add("" + (char) (newSpalte + 'a' - 1) + newZeile);
                 }
             }

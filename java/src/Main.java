@@ -7,35 +7,22 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Feld.laufendeNr = 0;
+        int zugNr = 0;
         Spiel spiel = new Spiel();
         Scanner scanner = new Scanner(System.in);
         // Ansicht Spieler Weiß
-        spiel.anzeigen("Weiß");
-        // simple test of figurBewegen()
-        System.out.println("pawn a2 to a4");
-        String move = spiel.spielerEingabe(scanner);
-        List<String> possibleMoves = spiel.getSpielMap().get(move.substring(0,2)).getPossibleMoves(spiel);
-        System.out.println(possibleMoves);
-        if (possibleMoves.contains(move.substring(2,4))) {
-            spiel.figurBewegen(move);
-        }else {
-            System.out.println("Kein erlaubter Zug");
+        while (zugNr <= 10){
+            String spieler = (zugNr % 2 == 0) ? "Weiß" : "Schwarz";
+            spiel.anzeigen(spieler);
+            String move = spiel.spielerEingabe(scanner);
+            List<String> possibleMoves = spiel.getSpielMap().get(move.substring(0,2)).getPossibleMoves(spiel);
+            System.out.println(possibleMoves);
+            if (possibleMoves.contains(move.substring(2,4))) {
+                spiel.figurBewegen(move);
+                zugNr++;
+            }else {
+                System.out.println("Kein erlaubter Zug");
+            }
         }
-        // Ansicht Spieler Schwarz
-        spiel.anzeigen("Schwarz");
-        System.out.println("pawn h7 to h5");
-        spiel.figurBewegen(spiel.spielerEingabe(scanner));
-        possibleMoves = spiel.getSpielMap().get("a1").getPossibleMoves(spiel);
-        System.out.println(possibleMoves);
-        spiel.anzeigen("Weiß");
-        move = spiel.spielerEingabe(scanner);
-        possibleMoves = spiel.getSpielMap().get(move.substring(0,2)).getPossibleMoves(spiel);
-        System.out.println(possibleMoves);
-        if (possibleMoves.contains(move.substring(2,4))) {
-            spiel.figurBewegen(move);
-        }else {
-            System.out.println("Kein erlaubter Zug");
-        }
-        spiel.anzeigen("Schwarz");
     }
 }
