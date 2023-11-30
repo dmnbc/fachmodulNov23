@@ -38,7 +38,7 @@ void Spiel::anzeigen()
 {
 	if (richtung)
 	{
-		std::cout << "Spieler Weiss ist am Zug!\n";
+		std::cout << "Spieler Weiss ist am Zug!\n\n";
 
 		string key;
 		char spalte;
@@ -46,9 +46,10 @@ void Spiel::anzeigen()
 
 
 		dkremer::concolinit();
-		dkremer::setcolor(green, black);
+		//dkremer::setcolor(green, black);
 		// dkremer::setcolor(red, blue);
 		std::cout << "    A B C D E F G H \n";
+		std::cout << "    --------------- \n";
 
 		for (zeile = '8'; zeile >= '1'; zeile--)
 		{
@@ -58,17 +59,19 @@ void Spiel::anzeigen()
 				key = std::string(1, spalte) + zeile;
 				std::cout << ((zeile + spalte) % 2 ? blue : red) << " ";
 				std::cout << spielmap[key].get_figur().get_darstellung();
+				std::cout << white;
 			}
 
 			std::cout << " | " << zeile << "\n";
 		}
+		std::cout << "    --------------- \n";
 		std::cout << "    A B C D E F G H \n";
-		dkremer::setcolor(green, black);
+		//dkremer::setcolor(green, black);
 		richtung = false;
 	}
 	else
 	{
-		std::cout << "Spieler Schwarz ist am Zug!\n";
+		std::cout << "Spieler Schwarz ist am Zug!\n\n";
 
 		string key;
 		char spalte;
@@ -76,9 +79,10 @@ void Spiel::anzeigen()
 
 
 		dkremer::concolinit();
-		dkremer::setcolor(green, black);
+		//dkremer::setcolor(green, black);
 		// dkremer::setcolor(red, blue);
 		std::cout << "    H G F E D C B A \n";
+		std::cout << "    --------------- \n";
 
 		for (zeile = '1'; zeile <= '8'; zeile++)
 		{
@@ -88,18 +92,21 @@ void Spiel::anzeigen()
 				key = std::string(1, spalte) + zeile;
 				std::cout << ((zeile + spalte) % 2 ? blue : red) << " ";
 				std::cout << spielmap[key].get_figur().get_darstellung();
+				std::cout << white;
 			}
 
 			std::cout << " | " << zeile << "\n";
 		}
+		std::cout << "    --------------- \n";
 		std::cout << "    H G F E D C B A \n";
-		dkremer::setcolor(green, black);
+		//dkremer::setcolor(green, black);
 		richtung = true;
 	}
 }
 string Spiel::input()
 {
 	std::cin >> eingabe;
+	std::cout << "\n";
 	eingabe[0] = tolower(eingabe[0]);
 	eingabe[2] = tolower(eingabe[2]);
 	//std::cout << eingabe[0] << eingabe[1] << eingabe[2] << eingabe[3] << " " << eingabe.length() << "\n"; //Tests
