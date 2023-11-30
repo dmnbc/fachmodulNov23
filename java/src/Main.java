@@ -8,21 +8,24 @@ public class Main {
     public static void main(String[] args) {
         Feld.laufendeNr = 0;
         int zugNr = 0;
-        Spiel spiel = new Spiel();
         Scanner scanner = new Scanner(System.in);
+        Spiel spiel = new Spiel(scanner);
+
         // Ansicht Spieler Weiß
-        while (zugNr <= 10){
-            String spieler = (zugNr % 2 == 0) ? "Weiß" : "Schwarz";
-            spiel.anzeigen(spieler);
-            String move = spiel.spielerEingabe(scanner);
+        while(true){
+            spiel.anzeigen(spiel.getCurrentPlayer());
+            String move = spiel.spielerEingabe();
             List<String> possibleMoves = spiel.getSpielMap().get(move.substring(0,2)).getPossibleMoves(spiel);
-            System.out.println(possibleMoves);
+            //System.out.println(possibleMoves);
             if (possibleMoves.contains(move.substring(2,4))) {
                 spiel.figurBewegen(move);
-                zugNr++;
             }else {
                 System.out.println("Kein erlaubter Zug");
             }
         }
+        // simple test of figurBewegen()
+
+        //color test
+
     }
 }

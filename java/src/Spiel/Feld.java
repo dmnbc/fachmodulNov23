@@ -19,7 +19,7 @@ public class Feld {
         feldNr = laufendeNr++;
         zeile = feldNr / 8;
         spalte = feldNr % 8;
-        feldFarbe = ((zeile + spalte) % 2 == 0) ? hell : dunkel;
+        feldFarbe = ((zeile + spalte) % 2 == 0 ? hell : dunkel);
         //System.out.printf("%d: %d,%d %c\n", feldNr, zeile, spalte, feldFarbe);
     }
 
@@ -27,7 +27,7 @@ public class Feld {
         feldNr = laufendeNr++;
         zeile = koordinaten.charAt(1) - '0';
         spalte = koordinaten.charAt(0) - '`';
-        feldFarbe = ((zeile + spalte) % 2 == 0) ? hell : dunkel;
+        feldFarbe =  ((zeile + spalte) % 2 == 0 ? hell : dunkel);
     }
 
     public String getFeldFarbe() {
@@ -47,15 +47,15 @@ public class Feld {
     }
 
     public Figur getFigure() {
-        return this.figur;
+        return figur;
     }
 
     public void setFigur(Figur figur) {
         this.figur = figur;
     }
     public List<String> getPossibleMoves(Spiel spiel){
-        if(this.figur!=null){
-            return figur.getPossibleMoves(zeile,spalte, spiel);
+        if(figur!=null){
+            return figur.getPossibleMoves(zeile,spalte);
         }else return null;
     }
 }
