@@ -92,7 +92,7 @@ public class Spiel {
             zugNummer++;
         } else {
             System.out.println("Unzulässiger Zug");
-            spielerEingabe();
+           // spielerEingabe();
         }
 
     }
@@ -182,7 +182,7 @@ public class Spiel {
         return userInput.toLowerCase();
     }
 
-    private String getCurrentPlayer() {
+    public String getCurrentPlayer() {
         return this.zugNummer % 2 == 0 ? "Weiß" : "Schwarz";
     }
 
