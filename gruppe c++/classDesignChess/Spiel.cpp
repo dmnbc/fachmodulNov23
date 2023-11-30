@@ -10,7 +10,7 @@ using namespace dkremer;
 
 Spiel::Spiel()
 {
-	// map füllen
+	// map fÃ¼llen
 	string key;
 	char spalte;
 	char zeile;
@@ -117,7 +117,7 @@ string Spiel::input()
 	zielpunkt2 = eingabe.substr(2, 2);
 
 
-	while (!std::any_of(zugliste.begin(), zugliste.end(), [zielpunkt2](std::string prüfer) {return prüfer == zielpunkt2; }))
+	while (!std::any_of(zugliste.begin(), zugliste.end(), [zielpunkt2](std::string prÃ¼fer) {return prÃ¼fer == zielpunkt2; }))
 	{
 		std::cout << "Kein regelkonformer Zug, bitte erneut eingeben!";
 		std::cin >> eingabe;
@@ -130,24 +130,24 @@ string Spiel::input()
 	}
 
 	/*while (eingabe.length() != 4
-		|| eingabeprüfung1.find(eingabe[0]) == string::npos
-		|| eingabeprüfung2.find(eingabe[1]) == string::npos
-		|| eingabeprüfung1.find(eingabe[2]) == string::npos
-		|| eingabeprüfung2.find(eingabe[3]) == string::npos
+		|| eingabeprÃ¼fung1.find(eingabe[0]) == string::npos
+		|| eingabeprÃ¼fung2.find(eingabe[1]) == string::npos
+		|| eingabeprÃ¼fung1.find(eingabe[2]) == string::npos
+		|| eingabeprÃ¼fung2.find(eingabe[3]) == string::npos
 		|| (eingabe[0] == eingabe[2] && eingabe[1] == eingabe[3]))
 		//|| erlaubt == true)
 		//zugliste != std::find(std::begin(eingabe), std::end(eingabe), zielpunkt)); // Versuch 1 Listenabgleich
-		//|| (eingabe[1] == eingabe[3] && (eingabe[0] + 32) == eingabe[2]) //Nur, wenn kein toupper() für Eingabe vorhanden
+		//|| (eingabe[1] == eingabe[3] && (eingabe[0] + 32) == eingabe[2]) //Nur, wenn kein toupper() fÃ¼r Eingabe vorhanden
 		//|| (eingabe[1] == eingabe[3] && eingabe[0] == (eingabe[2] + 32))) // "
 	 {
-		std::cout << "Falsche Eingabe! Bitte zwei zusammenhängenden Koordinaten von A1-A8 eingeben,\ndie nicht identisch sind. (Beispiel: B2C3 oder b2c3 || Ihre Eingabe:"
+		std::cout << "Falsche Eingabe! Bitte zwei zusammenhÃ¤ngenden Koordinaten von A1-A8 eingeben,\ndie nicht identisch sind. (Beispiel: B2C3 oder b2c3 || Ihre Eingabe:"
 			<< zwischenspeicher << ")\n";
 		std::cin >> eingabe;
 	}*/
 
 	//}
 
-		//liste erlaubtes feld und erreichen, dass nur diese felder angesprochen werden können
+		//liste erlaubtes feld und erreichen, dass nur diese felder angesprochen werden kÃ¶nnen
 		//system("CLS"); // Clear Screen
 		//zuganzahl++;
 		//spielhistorie[zuganzahl] = eingabe;
@@ -175,9 +175,6 @@ void Spiel::speichern()
 		char spalte;
 		char zeile;
 
-		dkremer::concolinit();
-		dkremer::setcolor(green, black);
-		// dkremer::setcolor(red, blue);
 		speichern << "    A B C D E F G H \n";
 
 		for (zeile = '8'; zeile >= '1'; zeile--)
@@ -188,22 +185,15 @@ void Spiel::speichern()
 				key = std::string(1, spalte) + zeile;
 				speichern << ((zeile + spalte) % 2 ? blue : red) << " ";
 				speichern << spielmap[key].get_figur().get_darstellung();
+				std::cout << white;
 			}
 			speichern << " | " << zeile << "\n";
 		}
 		speichern << "    A B C D E F G H \n";
-		dkremer::setcolor(green, black);
+		
 		richtung = false;
 
 		speichern << "\n";
-
-		//string key;
-		//char spalte;
-		//char zeile;
-
-		dkremer::concolinit();
-		dkremer::setcolor(green, black);
-		// dkremer::setcolor(red, blue);
 		speichern << "    H G F E D C B A \n";
 
 		for (zeile = '1'; zeile <= '8'; zeile++)
@@ -214,12 +204,12 @@ void Spiel::speichern()
 				key = std::string(1, spalte) + zeile;
 				speichern << ((zeile + spalte) % 2 ? blue : red) << " ";
 				speichern << spielmap[key].get_figur().get_darstellung();
+				std::cout << white;
 			}
 			speichern << " | " << zeile << "\n";
 
 		}
 		speichern << "    H G F E D C B A \n";
-		dkremer::setcolor(green, black);
 		richtung = true;
 	}
 }
