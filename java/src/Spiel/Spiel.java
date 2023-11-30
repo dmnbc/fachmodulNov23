@@ -171,15 +171,18 @@ public class Spiel {
 
     public String spielerEingabe() {
         String userInput;
-        String currentPlayer = this.zugNummer % 2 == 0 ? "Weiß" : "Schwarz";
 
         do {
-            System.out.println(currentPlayer + ", du bist dran. Bitte Spielzug eingeben (Format: a1b2):");
+            System.out.println(getCurrentPlayer() + ", du bist dran. Bitte Spielzug eingeben (Format: a1b2):");
             userInput = scanner.next();
 
         } while (!istKorrekteKoordinatenEingabe(userInput));
 
         return userInput.toLowerCase();
+    }
+
+    private String getCurrentPlayer() {
+        return this.zugNummer % 2 == 0 ? "Weiß" : "Schwarz";
     }
 
     private boolean istKorrekteKoordinatenEingabe(String userInput) {
