@@ -28,9 +28,7 @@ public class Spiel {
         initialisiereFiguren();
     }
 
-    public int getZugNummer() {
-        return this.zugNummer;
-    }
+    public int getZugNummer() {return zugNummer;}
 
     private void initialisiereFiguren() {
         for (char z = 'a'; z < 'i'; z++) {
@@ -96,28 +94,27 @@ public class Spiel {
             System.out.println("Unzulässiger Zug");
             spielerEingabe();
         }
+
     }
 
     //based on zugNummer a Field will be checked to see if contains a figure of the current players color. return false means enemy or empty.
-    // should accept any string of length 2 or greater where the first two char are valid coordinates
-    public boolean eigeneFarbe(String zug) {
-        if (this.spielMap.get(zug.substring(0, 2)).getFigure() == null) {
+    // should accept any string of length 2 or greater where the first two char are valid coordinates<<<<<<< java-lex-refa
+    public boolean eigeneFarbe(String zug){
+        if (spielMap.get(zug.substring(0, 2)).getFigure() == null){
             return false;
         }
-        String currentPlayer = this.zugNummer % 2 == 0 ? "Weiß" : "Schwarz";
-        return this.spielMap.get(zug.substring(0, 2)).getFigure().getColor().equals(currentPlayer);
+        String currentPlayer = zugNummer%2 == 0 ? "Weiß" : "Schwarz";
+        return spielMap.get(zug.substring(0,2)).getFigure().getColor().equals(currentPlayer);
     }
-
-    public boolean gegnerFarbe(String zug) {
-        if (this.spielMap.get(zug.substring(0, 2)).getFigure() == null) {
+    public boolean gegnerFarbe(String zug){
+        if (spielMap.get(zug.substring(0, 2)).getFigure() == null){
             return false;
         }
-        String currentPlayer = this.zugNummer % 2 == 1 ? "Weiß" : "Schwarz";
-        return this.spielMap.get(zug.substring(0, 2)).getFigure().getColor().equals(currentPlayer);
+        String currentPlayer = zugNummer%2 == 1 ? "Weiß" : "Schwarz";
+        return spielMap.get(zug.substring(0,2)).getFigure().getColor().equals(currentPlayer);
     }
-
-    public boolean feldLeer(String zug) {
-        return this.spielMap.get(zug.substring(0, 2)).getFigure() == null;
+    public boolean feldLeer(String zug){
+        return spielMap.get(zug.substring(0, 2)).getFigure() == null;
     }
 
     /**
@@ -174,6 +171,7 @@ public class Spiel {
 
     public String spielerEingabe() {
         String userInput;
+        String currentPlayer = zugNummer%2 == 0 ? "Weiß" : "Schwarz";
 
         do {
             System.out.println(getCurrentPlayer() + ", du bist dran. Bitte Spielzug eingeben (Format: a1b2):");
@@ -224,7 +222,7 @@ public class Spiel {
         if (startSpalte == zielSpalte && startZeile == zielZeile) {
             return false;
         }
-        if (!this.eigeneFarbe(userInput)) {
+        if (!eigeneFarbe(userInput)){
             return false;
         }
         if (feldLeer(userInput)) {
