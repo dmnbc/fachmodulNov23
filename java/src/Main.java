@@ -6,18 +6,22 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Feld.laufendeNr = 0;
-        Spiel spiel = new Spiel();
         Scanner scanner = new Scanner(System.in);
+        Spiel spiel = new Spiel(scanner);
+
         // Ansicht Spieler Weiß
         spiel.anzeigen("Weiß");
         // simple test of figurBewegen()
-        spiel.figurBewegen(spiel.spielerEingabe(scanner));
+        spiel.figurBewegen(spiel.spielerEingabe());
         //color test
         System.out.println("a2 ist leer: " + spiel.feldLeer("a2"));
         System.out.println("a2 ist eigene Figur: " + spiel.eigeneFarbe("a2"));
         System.out.println("a2 ist gegner Figur: " + spiel.gegnerFarbe("a2"));
         // Ansicht Spieler Schwarz
         spiel.anzeigen("Schwarz");
-
+        spiel.figurBewegen(spiel.spielerEingabe());
+        spiel.figurBewegen(spiel.spielerEingabe());
+        spiel.figurBewegen(spiel.spielerEingabe());
+        spiel.figurBewegen(spiel.spielerEingabe());
     }
 }
