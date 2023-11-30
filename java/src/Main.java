@@ -10,18 +10,13 @@ public class Main {
         Spiel spiel = new Spiel(scanner);
 
         // Ansicht Spieler Weiß
-        spiel.anzeigen("Weiß");
+        while(true){
+            spiel.anzeigen("Weiß");
+            spiel.figurBewegen(spiel.spielerEingabe());
+        }
         // simple test of figurBewegen()
-        spiel.figurBewegen(spiel.spielerEingabe());
+
         //color test
-        System.out.println("a2 ist leer: " + spiel.feldLeer("a2"));
-        System.out.println("a2 ist eigene Figur: " + spiel.eigeneFarbe("a2"));
-        System.out.println("a2 ist gegner Figur: " + spiel.gegnerFarbe("a2"));
-        // Ansicht Spieler Schwarz
-        spiel.anzeigen("Schwarz");
-        spiel.figurBewegen(spiel.spielerEingabe());
-        spiel.figurBewegen(spiel.spielerEingabe());
-        spiel.figurBewegen(spiel.spielerEingabe());
-        spiel.figurBewegen(spiel.spielerEingabe());
+
     }
 }

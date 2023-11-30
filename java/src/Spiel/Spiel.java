@@ -92,7 +92,7 @@ public class Spiel {
             zugNummer++;
         } else {
             System.out.println("Unzulässiger Zug");
-            spielerEingabe();
+           // spielerEingabe();
         }
 
     }
