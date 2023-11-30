@@ -20,9 +20,9 @@ private:
 	string zwischenspeicher; // um genaue eingabe wiederzugeben
 	string eingabeprüfung1 = "ABCDEFGHabcdefgh";
 	string eingabeprüfung2 = "12345678";
-	string startpunkt, startpunkt_s, startpunkt_z;
-	string zielpunkt, zielpunkt_s, zielpunkt_z;
-	std::array <std::string, 2> zugliste { "a3", "a4" };
+	std::string startpunkt, startpunkt_s, startpunkt_z;
+	std::string zielpunkt, zielpunkt_s, zielpunkt_z;
+	std::array <std::string, 8> zugliste{ "a1", "a2", "a3", "a4", "a5", "a6", "a7", "a8"};
 	//int zuganzahl;
 	//string spielhistorie[];
 	std::string zeilpunkt2;
@@ -34,7 +34,7 @@ public:
 	void speichern();
 	void laden();
 	void ziehen();
-//	string zugliste();
+	//	string zugliste();
 	string input();
 
 

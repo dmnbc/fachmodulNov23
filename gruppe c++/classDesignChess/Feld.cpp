@@ -7,6 +7,15 @@
 #include "Dame.h"
 #include "Pferd.h"
 #include "Laeufer.h"
+#include "Feld.h"
+#include <string>
+#include "Leer.h"
+#include "Bauer.h"
+#include "Turm.h"
+#include "Koenig.h"
+#include "Dame.h"
+#include "Pferd.h"
+#include "Laeufer.h"
 #include <iostream>
 #include "Spiel.h"
 
@@ -16,7 +25,7 @@ Feld::Feld()
 	zeile = feldNr / 8;
 	spalte = feldNr % 8;
 	feldFarbe = (zeile + spalte) % 2 ? 176 : 32;
-	//std::cout << __LINE__ << ":" <<"Feld.cpp -> ctor Feld() "
+	//std::cout << __LINE__ << ":" <<"Feld.cpp -> ctor Feld() "										//alter Feldkonstruktor
 	//	      << feldNr <<" in "<< zeile <<"," <<spalte 
 	//	      << "\t" << feldFarbe <<		"\n";
 // wie kann ich die Bezeichnung und die Farbe ermitteln ?
@@ -24,7 +33,7 @@ Feld::Feld()
 // aus der laufenden Nummer des Feldes ( 0 bis 63 ) kann man das berechnen
 }
 
-Feld::Feld(std::string koordinaten) // a1 dunkel a2 hell a3 dunkel   
+Feld::Feld(std::string koordinaten) // a1 dunkel a2 hell a3 dunkel									//Feldkonstruktor mit string Argument
 //   [0][1]         b1 hell  c1 dunkel 
 //    a  3
 {
@@ -34,9 +43,9 @@ Feld::Feld(std::string koordinaten) // a1 dunkel a2 hell a3 dunkel
 	// feldFarbe = (zeile + spalte) % 2 ? 176 : 32;
 	// std::cout << __LINE__ << " feld.cpp " << koordinaten << "\n";
 	// weiß groß - schwarz klein
-	
+
 	{
-		switch (zeile)
+		switch (zeile)																				//Switch/case zur Grundaufstellung
 		{
 		case 2:
 		case 7:
@@ -70,7 +79,7 @@ Feld::Feld(std::string koordinaten) // a1 dunkel a2 hell a3 dunkel
 			}
 			break;
 		default:
-			figur = Leer();
+			figur = Leer(zeile);
 		}
 	}
 }

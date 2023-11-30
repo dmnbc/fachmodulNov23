@@ -9,4 +9,6 @@ private:
 public:
     Leer();
 
+    Leer(char Fig);
+
 };

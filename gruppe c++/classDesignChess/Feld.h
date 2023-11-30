@@ -29,5 +29,3 @@ public:
 
 	Figur get_figur() { return figur; }
 };
-
-

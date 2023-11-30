@@ -3,10 +3,12 @@
 #include "consolenfarbe.h"
 #include "Leer.h"
 #include <algorithm>
+#include <iostream>
+#include <fstream>
 
 using namespace dkremer;
 
-Spiel::Spiel()
+Spiel::Spiel()																						//Initiierung des Spiels
 {
 	// map füllen
 	string key;
@@ -24,7 +26,7 @@ Spiel::Spiel()
 }
 
 void Spiel::anzeigen()
-/*{
+/*{																									//alte Darstellung mit feldFarbe
  // alle Felder mit ihrer feldFarbe als Quadrat darstellen
 
 	for( auto zeile : spielfeld)
@@ -38,7 +40,7 @@ void Spiel::anzeigen()
 }*/
 {
 	if (richtung)
-	{
+	{																								//Ausgabe
 		std::cout << "Spieler Weiss ist am Zug!\n\n";
 
 		string key;
@@ -71,7 +73,7 @@ void Spiel::anzeigen()
 		richtung = false;
 	}
 	else
-	{
+	{																								//gedrehte Ausgabe
 		std::cout << "Spieler Schwarz ist am Zug!\n\n";
 
 		string key;
@@ -106,7 +108,7 @@ void Spiel::anzeigen()
 }
 string Spiel::input()
 {
-	std::string zielpunkt2;
+	std::string zielpunkt2;																			//erste Eingabeaufforderung
 	std::cin >> eingabe;
 	zwischenspeicher = eingabe;
 	std::cout << "\n";
@@ -115,19 +117,18 @@ string Spiel::input()
 	zielpunkt2 = eingabe.substr(2, 2);
 
 
-	while (!std::any_of(zugliste.begin(), zugliste.end(), [zielpunkt2](std::string prüfer) {return prüfer == zielpunkt2; }))
+	while (!std::any_of(zugliste.begin(), zugliste.end(), [zielpunkt2](std::string prüfer) {return prüfer == zielpunkt2; })) //wiederholt Eingabeaufforderung solange, bis korrekte Angabe (in Liste zugliste enthalten)
 	{
-		std::cout << "Kein regelkonformer Zug, bitte erneut eingeben!";
+		std::cout << "Kein regelkonformer Zug, bitte erneut eingeben!\n\n";
 		std::cin >> eingabe;
 		zwischenspeicher = eingabe;
 		std::cout << "\n";
 		eingabe[0] = tolower(eingabe[0]);
 		eingabe[2] = tolower(eingabe[2]);
-		startpunkt = eingabe.substr(0, 2);
-		zielpunkt = eingabe.substr(2, 2);
+		zielpunkt2 = eingabe.substr(2, 2);
 	}
 
-	/*while (eingabe.length() != 4
+	/*while (eingabe.length() != 4																	//Regelprüfung, redundant, sobald Liste aller möglichen Züge implementiert
 		|| eingabeprüfung1.find(eingabe[0]) == string::npos
 		|| eingabeprüfung2.find(eingabe[1]) == string::npos
 		|| eingabeprüfung1.find(eingabe[2]) == string::npos
@@ -142,31 +143,67 @@ string Spiel::input()
 			<< zwischenspeicher << ")\n";
 		std::cin >> eingabe;
 	}*/
-	
-//}
-	
-	//liste erlaubtes feld und erreichen, dass nur diese felder angesprochen werden können
-	//system("CLS"); // Clear Screen
-	//zuganzahl++;
-	//spielhistorie[zuganzahl] = eingabe;
-	/*std::cout << "Liste aller bisherigen Zuege:\n";  // Versuch einer Spielhistorie
-	for (int i = 1; i < zuganzahl+1; i++)
-	{
-		std::cout << "Zug " << zuganzahl << ": " << spielhistorie[i] << "\n";
-	}*/
+
+		//system("CLS");																			// Clear Screen
+
 	zwischenspeicher[0] = toupper(zwischenspeicher[0]);
 	zwischenspeicher[2] = toupper(zwischenspeicher[2]);
-	std::cout << "\nLetzer Zug:" << zwischenspeicher << "\n\n";
+	std::cout << "\nLetzer Zug:" << zwischenspeicher << " (" << eingabe << ")\n\n";
 	return eingabe;
 }
 
-// Wenn input "Speichern", wird diese Methode aufgerufen
 void Spiel::speichern()
 {
-	speicherstand = spielmap;
+	ofstream speichern;
+	speichern.open("Spielstand.txt");
+
+	for (int i = 1; i < 2; i++)
+	{
+		string key;
+		char spalte;
+		char zeile;
+
+		speichern << "    A B C D E F G H \n";
+
+		for (zeile = '8'; zeile >= '1'; zeile--)
+		{
+			speichern << zeile << " |";
+			for (spalte = 'a'; spalte <= 'h'; spalte++)
+			{
+				key = std::string(1, spalte) + zeile;
+				speichern << ((zeile + spalte) % 2 ? blue : red) << " ";
+				speichern << spielmap[key].get_figur().get_darstellung();
+				std::cout << white;
+			}
+			speichern << " | " << zeile << "\n";
+		}
+		speichern << "    A B C D E F G H \n";
+
+		richtung = false;
+
+		speichern << "\n";
+		speichern << "    H G F E D C B A \n";
+
+		for (zeile = '1'; zeile <= '8'; zeile++)
+		{
+			speichern << zeile << " |";
+			for (spalte = 'h'; spalte >= 'a'; spalte--)
+			{
+				key = std::string(1, spalte) + zeile;
+				speichern << ((zeile + spalte) % 2 ? blue : red) << " ";
+				speichern << spielmap[key].get_figur().get_darstellung();
+				std::cout << white;
+			}
+			speichern << " | " << zeile << "\n";
+
+		}
+		speichern << "    H G F E D C B A \n";
+		richtung = true;
+	}
 }
 
-// Wenn input "Laden", wird diese Methode aufgerufen
+
+// Wenn input "Laden", wird diese Methode aufgerufen												//nicht implementierte Methode
 void Spiel::laden()
 {
 	spielmap = speicherstand;
@@ -176,25 +213,37 @@ void Spiel::laden()
 
 void Spiel::ziehen()
 {
-	/*startpunkt_s = eingabe.substr(0);
-	startpunkt_z = eingabe.substr(1);
-	zielpunkt_s = eingabe.substr(2);
-	zielpunkt_z = eingabe.substr(3);*/
-
-	//std::cout << startpunkt << " " << zielpunkt;
 	startpunkt = eingabe.substr(0, 2);
 	zielpunkt = eingabe.substr(2, 2);
-	spielmap[zielpunkt] = Feld(startpunkt);
-	spielmap[startpunkt] = Feld(zielpunkt);
-	//spielmap[zielpunkt].get_figur() = Feld(startpunkt).get_figur();
-	//spielmap[startpunkt].get_figur() = Feld(zielpunkt).get_figur();
-	//std::cout << startpunkt << spielmap[startpunkt].get_figur().get_darstellung();
-	//std::cout << zielpunkt << spielmap[zielpunkt].get_figur().get_darstellung();
-	//Feld(startpunkt).get_figur;
-	//std::cout << spielmap[startpunkt].get_figur()
+
+	/*std::cout << "Spielmap davor:\nStartpunkt(" << startpunkt << "): "							//Tests
+		<< spielmap[startpunkt].get_figur().get_darstellung() << "\nZielpunkt(" << zielpunkt
+		<< "): " << spielmap[zielpunkt].get_figur().get_darstellung() << "\n\n";
+	std::cout << "Feld davor:\nStartpunkt(" << startpunkt << "): "
+		<< Feld(startpunkt).get_figur().get_darstellung() << "\nZielpunkt(" << zielpunkt
+		<< "): " << Feld(zielpunkt).get_figur().get_darstellung() << "\n\n";*/
+
+	spielmap[zielpunkt] = Feld(startpunkt);															//Fehlerhaft, da nach dem ersten ziehen die Map beeinflusst wird, aber beim zweiten Aufruf Feld(startpunkt) noch immer die Figur der Grundaufstellung beinhaltet und nicht verändert wurde.
+
+	/*std::cout << "Spielmap Mittendrin:\nStartpunkt(" << startpunkt << "): "						//Tests
+			<< spielmap[startpunkt].get_figur().get_darstellung() << "\nZielpunkt(" << zielpunkt
+			<< "): " << spielmap[zielpunkt].get_figur().get_darstellung() << "\n\n";
+	std::cout << "Feld Mittendrin:\nStartpunkt(" << startpunkt << "): "
+		<< Feld(startpunkt).get_figur().get_darstellung() << "\nZielpunkt(" << zielpunkt
+		<< "): " << Feld(zielpunkt).get_figur().get_darstellung() << "\n\n";*/
+
+	spielmap[startpunkt] = Feld(zielpunkt);															//Fehlerhaft, siehe oben
+
+	Feld temp;																						//Versuch, den Fehler zu beheben (Leider Nein)
+	temp.get_figur() = Feld(startpunkt).get_figur();
+	Feld(startpunkt).get_figur() = Feld(zielpunkt).get_figur();
+	Feld(zielpunkt).get_figur() = temp.get_figur();
+
+	/*std::cout << "Spielmap danach:\nStartpunkt(" << startpunkt << "): "							//Tests
+		<< spielmap[startpunkt].get_figur().get_darstellung() << "\nZielpunkt(" << zielpunkt
+		<< "): " << spielmap[zielpunkt].get_figur().get_darstellung() << "\n\n";
+	std::cout << "Feld danach:\nStartpunkt(" << startpunkt << "): "
+		<< Feld(startpunkt).get_figur().get_darstellung() << "\nZielpunkt(" << zielpunkt
+		<< "): " << Feld(zielpunkt).get_figur().get_darstellung() << "\n\n";*/
+
 }
-
-//string Spiel::zugliste()
-//{
-
-//}

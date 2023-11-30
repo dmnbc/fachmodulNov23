@@ -1,8 +1,7 @@
 #include "Leer.h"
 #include <iostream>
 
-Leer::Leer()
+Leer::Leer(char Fig)
 {
 	darstellung = 'X';
 }
-
