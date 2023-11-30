@@ -29,6 +29,14 @@ public class Spiel {
         initialisiereFiguren();
     }
 
+    public void setSpielMap(Map<String, Feld> spielMap) {
+        this.spielMap = spielMap;
+    }
+
+    public Map<String, Feld> getSpielMap() {
+        return spielMap;
+    }
+
     public int getZugNummer() {
         return this.zugNummer;
     }
@@ -178,5 +186,58 @@ public class Spiel {
 
         // Rückgabe true, wenn alle Bedingungen erfüllt sind
         return true;
+    }
+
+    public boolean isWegFrei(String zug, Spiel spiel) {
+        boolean wegFrei = true;
+        zug = zug.toLowerCase();
+        char startS = zug.charAt(0);
+        char startZ = zug.charAt(1);
+        char zielS = zug.charAt(2);
+        char zielZ = zug.charAt(3);
+
+        char x = startZ;
+        char y = startS;
+
+        String eigeneFarbe = spielMap.get(zug.substring(0, 2)).getFigure().getColor();
+        // Figur läuft diagonal
+        if (startZ != zielZ && startS != zielS) {
+            while (x != zielZ && y != zielS) {
+                x = (char) ((startZ >= zielZ) ? x - 1 : x + 1);
+                y = (char) ((startS >= zielS) ? y - 1 : y + 1);
+                String key = String.valueOf(y) + x;
+                if (spielMap.get(key).getFigure() != null) {
+                    if (spielMap.get(key).getFigure().getColor().equals(eigeneFarbe)) {
+                        wegFrei = false;
+                        // Gegnerische Figur wird versucht zu überspringen
+                    } else if (x != zielZ && y != zielS) {
+                        wegFrei = false;
+                    }
+                }
+            }
+        } else {
+            while (x != zielZ || y != zielS) {
+                if (x > zielZ) {
+                    x--;
+                } else if (x < zielZ && x != 0) {
+                    x++;
+                }
+                if (y > zielS) {
+                    y--;
+                } else if (y < zielS && y != 0) {
+                    y++;
+                }
+                String key = String.valueOf(y) + x;
+                if (spielMap.get(key).getFigure() != null) {
+                    if (spielMap.get(key).getFigure().getColor().equals(eigeneFarbe)) {
+                        wegFrei = false;
+                        // Gegnerische Figur wird versucht zu überspringen
+                    } else if (x != zielZ || y != zielS) {
+                        wegFrei = false;
+                    }
+                }
+            }
+        }
+        return wegFrei;
     }
 }

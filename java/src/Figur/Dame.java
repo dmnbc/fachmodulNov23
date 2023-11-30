@@ -1,5 +1,7 @@
 package Figur;
 
+import Spiel.Spiel;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +11,7 @@ public class Dame extends Figur {
     }
 
     @Override
-    public List<String> getPossibleMoves(int zeile, int spalte) {
+    public List<String> getPossibleMoves(int zeile, int spalte, Spiel spiel) {
         List<String> moves = new ArrayList<>();
 
         for (int i = 1; i <= 8; i++) {

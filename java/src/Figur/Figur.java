@@ -1,5 +1,7 @@
 package Figur;
 
+import Spiel.Spiel;
+
 import java.util.List;
 
 public abstract class Figur {
@@ -17,7 +19,7 @@ public abstract class Figur {
         this.symbol = symbol;
         this.name = getClass().getSimpleName();
     }
-    public abstract List<String> getPossibleMoves(int zeile,int spalte);
+    public abstract List<String> getPossibleMoves(int zeile, int spalte, Spiel spiel);
     public String getColor() {
         return color;
     }
