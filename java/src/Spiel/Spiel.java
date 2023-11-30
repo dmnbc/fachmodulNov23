@@ -144,13 +144,26 @@ public class Spiel {
      * Diese Methode speichert nach Aufruf den Zugverlauf in einer Textdatei.
      */
     private void saveMap() {
-
         System.out.println("Bitte Namen für Speicherstand eingeben: ");
         String fileName = scanner.next();
-        String filePath = "java\\src\\savedFiles\\" + fileName + ".txt";
+        String folderPath = "java\\src\\savedFiles\\";
+        String filePath = folderPath + fileName + ".txt";
+
+        // Überprüfen, ob der Ordner existiert, andernfalls erstellen
+        File folder = new File(folderPath);
+        if (!folder.exists()) {
+            if (folder.mkdirs()) {
+                System.out.println("Speicherordner erstellt: " + folderPath);
+            } else {
+                System.out.println("Fehler beim Erstellen des Ordners: " + folderPath);
+                return;
+            }
+        }
+
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             writer.write(zugVerlauf.toString());
             writer.newLine();
+            System.out.println("Spielstand erfolreich erstellt: " + filePath);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -263,6 +276,8 @@ public class Spiel {
                             figurBewegen(newZugVerlauf.get(i));
                         }
                         anzeigen(zugNummer % 2 == 0 ? "Weiß" : "Schwarz");
+
+                        System.out.println("Spielstand erfolgreich geladen: " + fileName);
 
                     } catch (IOException e) {
                         throw new RuntimeException(e);
