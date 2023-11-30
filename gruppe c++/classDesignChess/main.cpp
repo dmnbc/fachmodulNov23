@@ -1,6 +1,3 @@
-// // classDesignChess.cpp : Diese Datei enthält die Funktion "main". Hier beginnt und endet die Ausführung des Programms.
-//
-
 #include <iostream>
 #include "Spiel.h"
 #include "Feld.h"
@@ -20,6 +17,7 @@ int main()
     {
         s1.input();
         s1.ziehen();
+        s1.speichern();
         //regelprüfung
         //wenn korrekt -> Spielhistorie
         //Figur wird bewegt
