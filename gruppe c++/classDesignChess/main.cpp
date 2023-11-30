@@ -17,7 +17,7 @@ int main()
     {
         s1.input();
         s1.ziehen();
-        s1.speichern();
+        
         //regelprüfung
         //wenn korrekt -> Spielhistorie
         //Figur wird bewegt
@@ -30,5 +30,6 @@ int main()
         //anzeige letzer zug
         //spielfeld neu anzeigen mit veränderten positionen der figuren
         s1.anzeigen(); //temp
+        s1.speichern();
     }
 }
