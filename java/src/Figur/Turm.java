@@ -1,11 +1,14 @@
 package Figur;
 
+import Spiel.Feld;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Turm extends Figur {
-    public Turm(String color) {
-        super(color, (!color.equals("Weiß") ? '\u2656' : '\u265C'));
+    public Turm(String color, Map<String, Feld> spielMap) {
+        super(color, (!color.equals("Weiß") ? '\u2656' : '\u265C'),  spielMap);
     }
 
     @Override

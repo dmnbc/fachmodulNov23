@@ -1,11 +1,14 @@
 package Figur;
 
+import Spiel.Feld;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Koenig extends Figur {
-    public Koenig(String color) {
-        super(color, (!color.equals("Weiß") ? '\u2654' : '\u265A'));
+    public Koenig(String color, Map<String, Feld> spielMap) {
+        super(color, (!color.equals("Weiß") ? '\u2654' : '\u265A'),  spielMap);
     }
 
     @Override

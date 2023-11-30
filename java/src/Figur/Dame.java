@@ -1,11 +1,14 @@
 package Figur;
 
+import Spiel.Feld;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Dame extends Figur {
-    public Dame(String color) {
-        super(color, (!color.equals("Weiß") ? '\u2655' : '\u265B'));
+    public Dame(String color, Map<String, Feld> spielMap) {
+        super(color, (!color.equals("Weiß") ? '\u2655' : '\u265B'),  spielMap);
     }
 
     @Override

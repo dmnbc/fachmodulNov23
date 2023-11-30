@@ -32,27 +32,26 @@ public class Spiel {
 
     private void initialisiereFiguren() {
         for (char z = 'a'; z < 'i'; z++) {
-            spielMap.get(z + "" + 2).setFigur(new Bauer("Weiß"));
-            spielMap.get(z + "" + 7).setFigur(new Bauer("Schwarz"));
+            spielMap.get(z + "" + 2).setFigur(new Bauer("Weiß",  spielMap));
+            spielMap.get(z + "" + 7).setFigur(new Bauer("Schwarz",  spielMap));
         }
-        spielMap.get('a' + "" + 1).setFigur(new Turm("Weiß"));
-        spielMap.get('b' + "" + 1).setFigur(new Springer("Weiß"));
-        spielMap.get('c' + "" + 1).setFigur(new Laeufer("Weiß"));
-        spielMap.get('d' + "" + 1).setFigur(new Dame("Weiß"));
-        spielMap.get('e' + "" + 1).setFigur(new Koenig("Weiß"));
-        spielMap.get('f' + "" + 1).setFigur(new Laeufer("Weiß"));
-        spielMap.get('g' + "" + 1).setFigur(new Springer("Weiß"));
-        spielMap.get('h' + "" + 1).setFigur(new Turm("Weiß"));
+        spielMap.get('a' + "" + 1).setFigur(new Turm("Weiß",  spielMap));
+        spielMap.get('b' + "" + 1).setFigur(new Springer("Weiß",  spielMap));
+        spielMap.get('c' + "" + 1).setFigur(new Laeufer("Weiß",  spielMap));
+        spielMap.get('d' + "" + 1).setFigur(new Dame("Weiß",  spielMap));
+        spielMap.get('e' + "" + 1).setFigur(new Koenig("Weiß",  spielMap));
+        spielMap.get('f' + "" + 1).setFigur(new Laeufer("Weiß",  spielMap));
+        spielMap.get('g' + "" + 1).setFigur(new Springer("Weiß",  spielMap));
+        spielMap.get('h' + "" + 1).setFigur(new Turm("Weiß",  spielMap));
 
-        spielMap.get('a' + "" + 8).setFigur(new Turm("Schwarz"));
-        spielMap.get('b' + "" + 8).setFigur(new Springer("Schwarz"));
-        spielMap.get('c' + "" + 8).setFigur(new Laeufer("Schwarz"));
-        spielMap.get('d' + "" + 8).setFigur(new Dame("Schwarz"));
-        spielMap.get('e' + "" + 8).setFigur(new Koenig("Schwarz"));
-        spielMap.get('f' + "" + 8).setFigur(new Laeufer("Schwarz"));
-        spielMap.get('g' + "" + 8).setFigur(new Springer("Schwarz"));
-        spielMap.get('h' + "" + 8).setFigur(new Turm("Schwarz"));
-
+        spielMap.get('a' + "" + 8).setFigur(new Turm("Schwarz",  spielMap));
+        spielMap.get('b' + "" + 8).setFigur(new Springer("Schwarz",  spielMap));
+        spielMap.get('c' + "" + 8).setFigur(new Laeufer("Schwarz",  spielMap));
+        spielMap.get('d' + "" + 8).setFigur(new Dame("Schwarz",  spielMap));
+        spielMap.get('e' + "" + 8).setFigur(new Koenig("Schwarz",  spielMap));
+        spielMap.get('f' + "" + 8).setFigur(new Laeufer("Schwarz",  spielMap));
+        spielMap.get('g' + "" + 8).setFigur(new Springer("Schwarz",  spielMap));
+        spielMap.get('h' + "" + 8).setFigur(new Turm("Schwarz",  spielMap));
     }
 
     public void anzeigen(String color) {
@@ -82,14 +81,19 @@ public class Spiel {
 
     //function to move a figure to a new field any appropriate outputs. It does NOT CHECK if the move is valid.
     public void figurBewegen(String zug) {
-        //TODO message on taking an enemy piece
-        //TODO message on putting enemy in check
-        spielMap.get(zug.substring(2, 4)).setFigur(spielMap.get(zug.substring(0, 2)).getFigure()); //move the Figur to the destination field
-        zugVerlauf.put(getZugNummer(), spielMap.get(zug.substring(0, 2)).getFigure().getSymbol() + zug); //add move to zugVerlauf with figur that was moved
-        spielMap.get(zug.substring(0, 2)).setFigur(null); //set source field to null
-        //TODO remove following test of zugVerlauf
-        System.out.println(zugVerlauf);
-        zugNummer++;
+        if (isPossibleMove(zug)) {
+            //TODO message on taking an enemy piece
+            //TODO message on putting enemy in check
+            spielMap.get(zug.substring(2, 4)).setFigur(spielMap.get(zug.substring(0, 2)).getFigure()); //move the Figur to the destination field
+            zugVerlauf.put(getZugNummer(), spielMap.get(zug.substring(0, 2)).getFigure().getSymbol() + zug); //add move to zugVerlauf with figur that was moved
+            spielMap.get(zug.substring(0, 2)).setFigur(null); //set source field to null
+            //TODO remove this test of zugVerlauf
+            System.out.println(zugVerlauf);
+            zugNummer++;
+        } else {
+            System.out.println("Unzulässiger Zug");
+            spielerEingabe();
+        }
 
     }
 
@@ -227,6 +231,20 @@ public class Spiel {
 
         // Rückgabe true, wenn alle Bedingungen erfüllt sind
         return true;
+    }
+
+    public boolean isPossibleMove(String userInput) {
+        boolean isPossible = false;
+        if (istKorrekteKoordinatenEingabe(userInput)) {
+            Feld feld = spielMap.get(userInput.substring(0, 2));
+
+            // Überprüfen, ob das Feld und die möglichen Züge vorhanden sind
+            if (feld.getPossibleMoves() != null) {
+                String zielFeld = userInput.substring(2, 4);
+                isPossible = feld.getPossibleMoves().contains(zielFeld);
+            }
+        }
+        return isPossible;
     }
 
     private void load() {
