@@ -19,5 +19,7 @@ public class Main {
         // Ansicht Spieler Schwarz
         spiel.anzeigen("Schwarz");
 
+        // test
+
     }
 }
