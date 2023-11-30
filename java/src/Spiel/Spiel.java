@@ -238,7 +238,7 @@ public class Spiel {
             Feld feld = spielMap.get(userInput.substring(0, 2));
 
             // Überprüfen, ob das Feld und die möglichen Züge vorhanden sind
-            if (feld != null && feld.getPossibleMoves() != null) {
+            if (feld.getPossibleMoves() != null) {
                 String zielFeld = userInput.substring(2, 4);
                 isPossible = feld.getPossibleMoves().contains(zielFeld);
             }
