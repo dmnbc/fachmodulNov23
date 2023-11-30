@@ -1,4 +1,4 @@
-// // classDesignChess.cpp : Diese Datei enth‰lt die Funktion "main". Hier beginnt und endet die Ausf¸hrung des Programms.
+// // classDesignChess.cpp : Diese Datei enth√§lt die Funktion "main". Hier beginnt und endet die Ausf√ºhrung des Programms.
 //
 
 #include <iostream>
@@ -20,7 +20,7 @@ int main()
     {
         s1.input();
         s1.ziehen();
-        //regelpr¸fung
+        //regelpr√ºfung
         //wenn korrekt -> Spielhistorie
         //Figur wird bewegt
         //bei Schachmatt/Unentschieden endbedigung = true
@@ -30,7 +30,7 @@ int main()
         }
         //clear screen
         //anzeige letzer zug
-        //spielfeld neu anzeigen mit ver‰nderten positionen der figuren
+        //spielfeld neu anzeigen mit ver√§nderten positionen der figuren
         s1.anzeigen(); //temp
     }
 }
